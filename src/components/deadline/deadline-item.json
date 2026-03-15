@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_deadline_deadline_items",
+  "info": {
+    "displayName": "deadline_item"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "date": {
+      "type": "date"
+    }
+  },
+  "config": {}
+}

@@ -1,0 +1,68 @@
+{
+  "kind": "collectionType",
+  "collectionName": "activities",
+  "info": {
+    "singularName": "activity",
+    "pluralName": "activities",
+    "displayName": "Activity"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "blocks"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "conference",
+        "workshop",
+        "seminar"
+      ]
+    },
+    "event_status": {
+      "type": "enumeration",
+      "enum": [
+        "open",
+        "register",
+        "upcoming",
+        "finished"
+      ]
+    },
+    "location": {
+      "type": "string"
+    },
+    "event_start_date": {
+      "type": "date"
+    },
+    "event_end_date": {
+      "type": "date"
+    },
+    "year": {
+      "type": "integer"
+    },
+    "deadline": {
+      "type": "component",
+      "component": "deadline.deadline-item",
+      "repeatable": true
+    },
+    "register_url": {
+      "type": "string"
+    },
+    "image": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  }
+}
