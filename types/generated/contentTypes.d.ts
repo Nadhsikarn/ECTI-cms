@@ -441,11 +441,13 @@ export interface ApiActivityActivity extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    buttons: Schema.Attribute.Component<'ui.button-item', true>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     deadline: Schema.Attribute.Component<'deadline.deadline-item', true>;
     description: Schema.Attribute.Blocks;
+    description_en: Schema.Attribute.Blocks;
     event_end_date: Schema.Attribute.Date;
     event_start_date: Schema.Attribute.Date;
     event_status: Schema.Attribute.Enumeration<
@@ -462,9 +464,11 @@ export interface ApiActivityActivity extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     location: Schema.Attribute.String;
+    location_en: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    register_url: Schema.Attribute.String;
+    slug: Schema.Attribute.UID<'title'>;
     title: Schema.Attribute.String;
+    title_en: Schema.Attribute.String;
     type: Schema.Attribute.Enumeration<['conference', 'workshop', 'seminar']>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

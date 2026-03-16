@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_ui_button_items",
+  "info": {
+    "displayName": "button_item"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "primary",
+        "secondary",
+        "link"
+      ]
+    }
+  },
+  "config": {}
+}

@@ -14,7 +14,13 @@
     "title": {
       "type": "string"
     },
+    "title_en": {
+      "type": "string"
+    },
     "description": {
+      "type": "blocks"
+    },
+    "description_en": {
       "type": "blocks"
     },
     "type": {
@@ -37,6 +43,9 @@
     "location": {
       "type": "string"
     },
+    "location_en": {
+      "type": "string"
+    },
     "event_start_date": {
       "type": "date"
     },
@@ -45,14 +54,6 @@
     },
     "year": {
       "type": "integer"
-    },
-    "deadline": {
-      "type": "component",
-      "component": "deadline.deadline-item",
-      "repeatable": true
-    },
-    "register_url": {
-      "type": "string"
     },
     "image": {
       "type": "media",
@@ -63,6 +64,20 @@
         "videos",
         "audios"
       ]
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
+    },
+    "deadline": {
+      "type": "component",
+      "component": "deadline.deadline-item",
+      "repeatable": true
+    },
+    "buttons": {
+      "type": "component",
+      "component": "ui.button-item",
+      "repeatable": true
     }
   }
 }
