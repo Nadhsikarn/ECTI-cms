@@ -64,10 +64,8 @@
       "component": "deadline.deadline-item",
       "repeatable": true
     },
-    "buttons": {
-      "type": "component",
-      "component": "ui.button-item",
-      "repeatable": true
+    "register_url": {
+      "type": "string"
     }
   }
 }

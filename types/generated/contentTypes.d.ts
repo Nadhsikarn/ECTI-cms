@@ -441,7 +441,6 @@ export interface ApiActivityActivity extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    buttons: Schema.Attribute.Component<'ui.button-item', true>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -462,6 +461,7 @@ export interface ApiActivityActivity extends Struct.CollectionTypeSchema {
     location: Schema.Attribute.String;
     location_en: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    register_url: Schema.Attribute.String;
     slug: Schema.Attribute.UID<'title'>;
     title: Schema.Attribute.String;
     title_en: Schema.Attribute.String;
