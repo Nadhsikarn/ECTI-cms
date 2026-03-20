@@ -23,6 +23,9 @@
     "description_en": {
       "type": "blocks"
     },
+    "year": {
+      "type": "string"
+    },
     "type": {
       "type": "enumeration",
       "enum": [
@@ -51,19 +54,6 @@
     },
     "event_end_date": {
       "type": "date"
-    },
-    "year": {
-      "type": "integer"
-    },
-    "image": {
-      "type": "media",
-      "multiple": true,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
     },
     "slug": {
       "type": "uid",

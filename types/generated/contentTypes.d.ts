@@ -453,10 +453,6 @@ export interface ApiActivityActivity extends Struct.CollectionTypeSchema {
     event_status: Schema.Attribute.Enumeration<
       ['open', 'register', 'upcoming', 'finished']
     >;
-    image: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
-      true
-    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -466,14 +462,14 @@ export interface ApiActivityActivity extends Struct.CollectionTypeSchema {
     location: Schema.Attribute.String;
     location_en: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
+    slug: Schema.Attribute.UID<'title'>;
     title: Schema.Attribute.String;
     title_en: Schema.Attribute.String;
     type: Schema.Attribute.Enumeration<['conference', 'workshop', 'seminar']>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    year: Schema.Attribute.Integer;
+    year: Schema.Attribute.String;
   };
 }
 

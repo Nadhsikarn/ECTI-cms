@@ -17,7 +17,6 @@ export interface UiButtonItem extends Struct.ComponentSchema {
     displayName: 'button_item';
   };
   attributes: {
-    label: Schema.Attribute.String;
     type: Schema.Attribute.Enumeration<['primary', 'secondary', 'link']>;
     url: Schema.Attribute.String;
   };
