@@ -466,7 +466,7 @@ export interface ApiActivityActivity extends Struct.CollectionTypeSchema {
     location: Schema.Attribute.String;
     location_en: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    slug: Schema.Attribute.UID<'title'>;
+    slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
     title: Schema.Attribute.String;
     title_en: Schema.Attribute.String;
     type: Schema.Attribute.Enumeration<['conference', 'workshop', 'seminar']>;
