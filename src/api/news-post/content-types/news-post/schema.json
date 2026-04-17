@@ -1,0 +1,52 @@
+{
+  "kind": "collectionType",
+  "collectionName": "news_posts",
+  "info": {
+    "singularName": "news-post",
+    "pluralName": "news-posts",
+    "displayName": "News"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "title_en": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title_en"
+    },
+    "summary": {
+      "type": "text"
+    },
+    "summary_en": {
+      "type": "text"
+    },
+    "body": {
+      "type": "blocks"
+    },
+    "body_en": {
+      "type": "blocks"
+    },
+    "date": {
+      "type": "date"
+    },
+    "tags": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tag.tag",
+      "inversedBy": "news"
+    },
+    "author": {
+      "type": "string"
+    },
+    "read_time_min": {
+      "type": "integer"
+    }
+  }
+}
