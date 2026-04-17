@@ -4,7 +4,7 @@
   "info": {
     "singularName": "about",
     "pluralName": "abouts",
-    "displayName": "About"
+    "displayName": "Board_member"
   },
   "options": {
     "draftAndPublish": true

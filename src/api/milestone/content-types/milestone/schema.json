@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "milestones",
+  "info": {
+    "singularName": "milestone",
+    "pluralName": "milestones",
+    "displayName": "Milestone"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "year": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "title_en": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "description_en": {
+      "type": "text"
+    }
+  }
+}

@@ -433,7 +433,7 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
 export interface ApiAboutAbout extends Struct.CollectionTypeSchema {
   collectionName: 'abouts';
   info: {
-    displayName: 'About';
+    displayName: 'Board_member';
     pluralName: 'abouts';
     singularName: 'about';
   };
@@ -500,6 +500,38 @@ export interface ApiActivityActivity extends Struct.CollectionTypeSchema {
     title: Schema.Attribute.String;
     title_en: Schema.Attribute.String;
     type: Schema.Attribute.Enumeration<['conference', 'workshop', 'seminar']>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    year: Schema.Attribute.String;
+  };
+}
+
+export interface ApiMilestoneMilestone extends Struct.CollectionTypeSchema {
+  collectionName: 'milestones';
+  info: {
+    displayName: 'Milestone';
+    pluralName: 'milestones';
+    singularName: 'milestone';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    description_en: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::milestone.milestone'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String;
+    title_en: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1020,6 +1052,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::about.about': ApiAboutAbout;
       'api::activity.activity': ApiActivityActivity;
+      'api::milestone.milestone': ApiMilestoneMilestone;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
