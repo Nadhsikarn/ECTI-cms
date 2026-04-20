@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "questions",
+  "info": {
+    "singularName": "question",
+    "pluralName": "questions",
+    "displayName": "Questions"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Questions": {
+      "type": "string"
+    },
+    "answer": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "howto_joins",
+  "info": {
+    "singularName": "howto-join",
+    "pluralName": "howto-joins",
+    "displayName": "HowtoJoin"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "step": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  }
+}
