@@ -1,5 +1,29 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface AboutAboutCard extends Struct.ComponentSchema {
+  collectionName: 'components_about_about_cards';
+  info: {
+    displayName: 'about_card';
+  };
+  attributes: {
+    description_en: Schema.Attribute.Text;
+    description_th: Schema.Attribute.Text;
+    title_en: Schema.Attribute.String;
+    title_th: Schema.Attribute.String;
+  };
+}
+
+export interface AboutObjectiveItem extends Struct.ComponentSchema {
+  collectionName: 'components_about_objective_items';
+  info: {
+    displayName: 'objective_item';
+  };
+  attributes: {
+    text_en: Schema.Attribute.String;
+    text_th: Schema.Attribute.String;
+  };
+}
+
 export interface DeadlineDeadlineItem extends Struct.ComponentSchema {
   collectionName: 'components_deadline_deadline_items';
   info: {
@@ -25,6 +49,8 @@ export interface UiButtonItem extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'about.about-card': AboutAboutCard;
+      'about.objective-item': AboutObjectiveItem;
       'deadline.deadline-item': DeadlineDeadlineItem;
       'ui.button-item': UiButtonItem;
     }

@@ -1,0 +1,20 @@
+{
+  "kind": "singleType",
+  "collectionName": "objectives",
+  "info": {
+    "singularName": "objective",
+    "pluralName": "objectives",
+    "displayName": "Objectives"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "items": {
+      "type": "component",
+      "component": "about.objective-item",
+      "repeatable": true
+    }
+  }
+}

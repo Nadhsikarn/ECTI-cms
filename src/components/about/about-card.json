@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_about_about_cards",
+  "info": {
+    "displayName": "about_card"
+  },
+  "options": {},
+  "attributes": {
+    "title_th": {
+      "type": "string"
+    },
+    "title_en": {
+      "type": "string"
+    },
+    "description_th": {
+      "type": "text"
+    },
+    "description_en": {
+      "type": "text"
+    }
+  },
+  "config": {}
+}

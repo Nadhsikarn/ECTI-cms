@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_about_objective_items",
+  "info": {
+    "displayName": "objective_item"
+  },
+  "options": {},
+  "attributes": {
+    "text_th": {
+      "type": "string"
+    },
+    "text_en": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

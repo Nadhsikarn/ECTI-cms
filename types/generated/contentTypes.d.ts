@@ -630,6 +630,34 @@ export interface ApiMilestoneMilestone extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiMissionVisionMissionVision extends Struct.SingleTypeSchema {
+  collectionName: 'mission_visions';
+  info: {
+    displayName: 'Mission-Vision';
+    pluralName: 'mission-visions';
+    singularName: 'mission-vision';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    cards: Schema.Attribute.Component<'about.about-card', true>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::mission-vision.mission-vision'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiNewsPostNewsPost extends Struct.CollectionTypeSchema {
   collectionName: 'news_posts';
   info: {
@@ -662,6 +690,34 @@ export interface ApiNewsPostNewsPost extends Struct.CollectionTypeSchema {
     tags: Schema.Attribute.Relation<'manyToMany', 'api::tag.tag'>;
     title: Schema.Attribute.String;
     title_en: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiObjectiveObjective extends Struct.SingleTypeSchema {
+  collectionName: 'objectives';
+  info: {
+    displayName: 'Objectives';
+    pluralName: 'objectives';
+    singularName: 'objective';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    items: Schema.Attribute.Component<'about.objective-item', true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::objective.objective'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1273,7 +1329,9 @@ declare module '@strapi/strapi' {
       'api::howto-join.howto-join': ApiHowtoJoinHowtoJoin;
       'api::member-types.member-types': ApiMemberTypesMemberTypes;
       'api::milestone.milestone': ApiMilestoneMilestone;
+      'api::mission-vision.mission-vision': ApiMissionVisionMissionVision;
       'api::news-post.news-post': ApiNewsPostNewsPost;
+      'api::objective.objective': ApiObjectiveObjective;
       'api::question.question': ApiQuestionQuestion;
       'api::resource.resource': ApiResourceResource;
       'api::tag.tag': ApiTagTag;
