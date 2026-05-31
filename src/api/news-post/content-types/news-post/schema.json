@@ -33,9 +33,6 @@
     "body_en": {
       "type": "blocks"
     },
-    "date": {
-      "type": "date"
-    },
     "tags": {
       "type": "relation",
       "relation": "manyToMany",
