@@ -62,6 +62,7 @@ async function enablePublicPermissions(strapi: Core.Strapi) {
     'api::howto-join.howto-join',
     'api::question.question',
     'api::resource.resource',
+    'api::journal.journal',
   ];
 
   const actions = ['find', 'findOne'];
@@ -98,6 +99,27 @@ export default {
       }
 
       return result;
+    });
+
+    // Auto-stamp Journal.published_date with the current publish time.
+    // We update the draft *before* publishing so the published clone inherits
+    // it and both versions show the value in the admin form.
+    strapi.documents.use(async (ctx, next) => {
+      if (ctx.uid === 'api::journal.journal' && ctx.action === 'publish') {
+        const documentId =
+          typeof ctx.params === 'object' && ctx.params !== null && 'documentId' in ctx.params
+            ? (ctx.params as { documentId?: string }).documentId
+            : undefined;
+
+        if (documentId) {
+          await strapi.documents('api::journal.journal').update({
+            documentId,
+            data: { published_date: new Date().toISOString() } as any,
+          });
+        }
+      }
+
+      return next();
     });
   },
 

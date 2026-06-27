@@ -695,6 +695,68 @@ export interface ApiHowtoJoinHowtoJoin extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiJournalJournal extends Struct.CollectionTypeSchema {
+  collectionName: 'journals';
+  info: {
+    displayName: 'Publications \u2014 ECTI Journal';
+    pluralName: 'journals';
+    singularName: 'journal';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::journal.journal'
+    >;
+    order: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    published_date: Schema.Attribute.DateTime &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    url: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+  };
+}
+
 export interface ApiMemberTypeMemberType extends Struct.CollectionTypeSchema {
   collectionName: 'member_types';
   info: {
@@ -1624,6 +1686,7 @@ declare module '@strapi/strapi' {
       'api::benefit.benefit': ApiBenefitBenefit;
       'api::board-member.board-member': ApiBoardMemberBoardMember;
       'api::howto-join.howto-join': ApiHowtoJoinHowtoJoin;
+      'api::journal.journal': ApiJournalJournal;
       'api::member-type.member-type': ApiMemberTypeMemberType;
       'api::milestone.milestone': ApiMilestoneMilestone;
       'api::mission-vision.mission-vision': ApiMissionVisionMissionVision;
