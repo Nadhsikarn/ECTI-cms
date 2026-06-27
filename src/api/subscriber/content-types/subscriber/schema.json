@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "subscribers",
+  "info": {
+    "singularName": "subscriber",
+    "pluralName": "subscribers",
+    "displayName": "Subscriber"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "email": {
+      "type": "email",
+      "required": true,
+      "unique": true
+    },
+    "language": {
+      "type": "enumeration",
+      "enum": [
+        "th",
+        "en"
+      ],
+      "default": "th"
+    }
+  }
+}
