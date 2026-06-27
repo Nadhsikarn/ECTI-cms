@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "resources",
+  "collectionName": "board_members",
   "info": {
-    "singularName": "resource",
-    "pluralName": "resources",
-    "displayName": "Resources — Resource"
+    "singularName": "board-member",
+    "pluralName": "board-members",
+    "displayName": "About — Board Member"
   },
   "options": {
     "draftAndPublish": true
@@ -15,7 +15,7 @@
     }
   },
   "attributes": {
-    "title": {
+    "name": {
       "type": "string",
       "required": true,
       "pluginOptions": {
@@ -24,32 +24,41 @@
         }
       }
     },
-    "description": {
-      "type": "text",
+    "role": {
+      "type": "string",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       }
     },
-    "link": {
+    "institution": {
       "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "committee": {
+      "type": "enumeration",
+      "enum": [
+        "exec",
+        "academic",
+        "publications"
+      ],
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
       }
     },
-    "platform": {
-      "type": "string",
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      }
-    },
-    "date": {
-      "type": "date",
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ],
       "pluginOptions": {
         "i18n": {
           "localized": false

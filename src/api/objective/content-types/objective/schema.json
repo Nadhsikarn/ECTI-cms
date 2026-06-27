@@ -4,17 +4,26 @@
   "info": {
     "singularName": "objective",
     "pluralName": "objectives",
-    "displayName": "Objectives"
+    "displayName": "About — Objectives"
   },
   "options": {
     "draftAndPublish": true
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
   "attributes": {
     "items": {
       "type": "component",
       "component": "about.objective-item",
-      "repeatable": true
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }

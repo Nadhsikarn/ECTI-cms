@@ -4,15 +4,25 @@
   "info": {
     "singularName": "benefit",
     "pluralName": "benefits",
-    "displayName": "Benefit"
+    "displayName": "Membership — Benefit"
   },
   "options": {
     "draftAndPublish": true
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
   "attributes": {
-    "Benefit": {
-      "type": "string"
+    "description": {
+      "type": "text",
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }

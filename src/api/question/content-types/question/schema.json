@@ -4,18 +4,33 @@
   "info": {
     "singularName": "question",
     "pluralName": "questions",
-    "displayName": "Questions"
+    "displayName": "Membership — FAQ"
   },
   "options": {
     "draftAndPublish": true
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
   "attributes": {
-    "Questions": {
-      "type": "string"
+    "question": {
+      "type": "text",
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "answer": {
-      "type": "string"
+      "type": "blocks",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }

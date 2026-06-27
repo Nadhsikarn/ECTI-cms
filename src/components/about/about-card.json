@@ -5,16 +5,10 @@
   },
   "options": {},
   "attributes": {
-    "title_th": {
+    "title": {
       "type": "string"
     },
-    "title_en": {
-      "type": "string"
-    },
-    "description_th": {
-      "type": "text"
-    },
-    "description_en": {
+    "description": {
       "type": "text"
     }
   },

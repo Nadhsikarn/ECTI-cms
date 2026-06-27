@@ -6,10 +6,8 @@ export interface AboutAboutCard extends Struct.ComponentSchema {
     displayName: 'about_card';
   };
   attributes: {
-    description_en: Schema.Attribute.Text;
-    description_th: Schema.Attribute.Text;
-    title_en: Schema.Attribute.String;
-    title_th: Schema.Attribute.String;
+    description: Schema.Attribute.Text;
+    title: Schema.Attribute.String;
   };
 }
 
@@ -19,8 +17,7 @@ export interface AboutObjectiveItem extends Struct.ComponentSchema {
     displayName: 'objective_item';
   };
   attributes: {
-    text_en: Schema.Attribute.String;
-    text_th: Schema.Attribute.String;
+    text: Schema.Attribute.Text;
   };
 }
 

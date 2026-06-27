@@ -4,17 +4,26 @@
   "info": {
     "singularName": "mission-vision",
     "pluralName": "mission-visions",
-    "displayName": "Mission-Vision"
+    "displayName": "About — Mission-Vision"
   },
   "options": {
     "draftAndPublish": true
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
   "attributes": {
     "cards": {
       "type": "component",
       "component": "about.about-card",
-      "repeatable": true
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }

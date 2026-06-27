@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "resources",
+  "collectionName": "member_types",
   "info": {
-    "singularName": "resource",
-    "pluralName": "resources",
-    "displayName": "Resources — Resource"
+    "singularName": "member-type",
+    "pluralName": "member-types",
+    "displayName": "Membership — Member Type"
   },
   "options": {
     "draftAndPublish": true
@@ -15,7 +15,7 @@
     }
   },
   "attributes": {
-    "title": {
+    "type": {
       "type": "string",
       "required": true,
       "pluginOptions": {
@@ -24,7 +24,7 @@
         }
       }
     },
-    "description": {
+    "eligibility": {
       "type": "text",
       "pluginOptions": {
         "i18n": {
@@ -32,24 +32,28 @@
         }
       }
     },
-    "link": {
-      "type": "string",
+    "annual_fee": {
+      "type": "integer",
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
       }
     },
-    "platform": {
-      "type": "string",
+    "lifetime_fee": {
+      "type": "integer",
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
       }
     },
-    "date": {
-      "type": "date",
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ],
       "pluginOptions": {
         "i18n": {
           "localized": false

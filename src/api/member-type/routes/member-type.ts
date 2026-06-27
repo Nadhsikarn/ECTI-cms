@@ -4,4 +4,4 @@
 
 import { factories } from '@strapi/strapi';
 
-export default factories.createCoreRouter('api::member-types.member-types');
+export default factories.createCoreRouter('api::member-type.member-type');

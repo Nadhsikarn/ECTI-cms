@@ -4,4 +4,4 @@
 
 import { factories } from '@strapi/strapi';
 
-export default factories.createCoreController('api::member-types.member-types');
+export default factories.createCoreController('api::member-type.member-type');

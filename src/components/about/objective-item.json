@@ -5,11 +5,8 @@
   },
   "options": {},
   "attributes": {
-    "text_th": {
-      "type": "string"
-    },
-    "text_en": {
-      "type": "string"
+    "text": {
+      "type": "text"
     }
   },
   "config": {}
