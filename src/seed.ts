@@ -21,6 +21,7 @@ export async function seed(strapi: Core.Strapi) {
   await seedHowToJoins(strapi);
   await seedQuestions(strapi);
   await seedResources(strapi);
+  await seedJournals(strapi);
 
   strapi.log.info('[seed] Done.');
 }
@@ -453,4 +454,64 @@ async function seedResources(strapi: Core.Strapi) {
     });
   }
   strapi.log.info('[seed] Resources created');
+}
+
+// ─── Journals (Publications) ─────────────────────────────────────────────────
+
+async function seedJournals(strapi: Core.Strapi) {
+  if (await countDocuments(strapi, 'api::journal.journal') > 0) return;
+
+  const journals = [
+    {
+      order: 1,
+      url: 'https://ph01.tci-thaijo.org/index.php/ECTI-EEC',
+      th: {
+        title: 'ECTI Transactions on Electrical Eng., Electronics, and Communications (ECTI-EEC)',
+        description: 'วารสารที่ครอบคลุมงานวิจัยด้านวิศวกรรมไฟฟ้า อิเล็กทรอนิกส์ และการสื่อสาร',
+      },
+      en: {
+        title: 'ECTI Transactions on Electrical Eng., Electronics, and Communications (ECTI-EEC)',
+        description: 'A journal covering research in electrical engineering, electronics, and communications.',
+      },
+    },
+    {
+      order: 2,
+      url: 'https://ph01.tci-thaijo.org/index.php/ecticit',
+      th: {
+        title: 'ECTI Transactions on Computer and Information Technology (ECTI-CIT)',
+        description: 'วารสารที่ครอบคลุมงานวิจัยด้านวิทยาการคอมพิวเตอร์และเทคโนโลยีสารสนเทศ',
+      },
+      en: {
+        title: 'ECTI Transactions on Computer and Information Technology (ECTI-CIT)',
+        description: 'A journal covering research in computer science and information technology.',
+      },
+    },
+    {
+      order: 3,
+      url: 'https://ph01.tci-thaijo.org/index.php/ECTI-ARD',
+      th: {
+        title: 'ECTI Journal on Applied Research and Development (ECTI-ARD)',
+        description: 'วารสารที่ครอบคลุมงานวิจัยด้านการประยุกต์ใช้เทคโนโลยีวิศวกรรมไฟฟ้า อิเล็กทรอนิกส์ คอมพิวเตอร์ และสารสนเทศ เพื่อนำไปสู่นวัตกรรมที่เป็นประโยชน์',
+      },
+      en: {
+        title: 'ECTI Journal on Applied Research and Development (ECTI-ARD)',
+        description: 'A journal covering applied research in electrical engineering, electronics, computer, and information technology, driving innovation for practical benefit.',
+      },
+    },
+  ];
+
+  for (const j of journals) {
+    const doc = await strapi.documents('api::journal.journal').create({
+      data: { title: j.th.title, description: j.th.description, url: j.url, order: j.order },
+      locale: 'th',
+      status: 'published',
+    });
+    await strapi.documents('api::journal.journal').update({
+      documentId: doc.documentId,
+      data: { title: j.en.title, description: j.en.description },
+      locale: 'en',
+      status: 'published',
+    });
+  }
+  strapi.log.info('[seed] Journals created');
 }
