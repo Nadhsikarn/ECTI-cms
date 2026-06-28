@@ -22,6 +22,7 @@ export async function seed(strapi: Core.Strapi) {
   await seedQuestions(strapi);
   await seedResources(strapi);
   await seedJournals(strapi);
+  await seedContact(strapi);
 
   strapi.log.info('[seed] Done.');
 }
@@ -514,4 +515,36 @@ async function seedJournals(strapi: Core.Strapi) {
     });
   }
   strapi.log.info('[seed] Journals created');
+}
+
+// ─── Contact (Single Type) ───────────────────────────────────────────────────
+
+async function seedContact(strapi: Core.Strapi) {
+  const existing = await (strapi.documents('api::contact.contact') as any).findFirst({ locale: 'th' });
+  if (existing?.email) return;
+
+  const th = {
+    address: 'สมาคม ECTI สำนักงานคณะวิศวกรรมศาสตร์ มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ กรุงเทพฯ 10800',
+    email: 'info@ecti.or.th',
+    phone: '02-555-2000 ต่อ 8218',
+    office_hours: 'จันทร์–ศุกร์ 09:00–16:30 น.',
+  };
+  const en = {
+    address: "ECTI Association, Faculty of Engineering, King Mongkut's University of Technology North Bangkok, Bangkok 10800, Thailand",
+    phone: '02-555-2000 ext. 8218',
+    office_hours: 'Monday - Friday, 09:00 - 16:30',
+  };
+
+  const doc = await strapi.documents('api::contact.contact').create({
+    data: th,
+    locale: 'th',
+    status: 'published',
+  });
+  await strapi.documents('api::contact.contact').update({
+    documentId: doc.documentId,
+    data: en,
+    locale: 'en',
+    status: 'published',
+  });
+  strapi.log.info('[seed] Contact created');
 }
