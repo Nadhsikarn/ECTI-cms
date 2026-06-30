@@ -117,7 +117,9 @@ async function seedNewsPosts(strapi: Core.Strapi) {
     });
     await strapi.documents('api::news-post.news-post').update({
       documentId: doc.documentId,
-      data: { title: p.en.title, summary: p.en.summary, body: p.en.body },
+      // slug is a non-localized uid; Strapi does not carry it to the en locale
+      // automatically, so set it explicitly to keep the localized URL working.
+      data: { slug: p.slug, title: p.en.title, summary: p.en.summary, body: p.en.body },
       locale: 'en',
       status: 'published',
     });
@@ -295,7 +297,9 @@ async function seedActivities(strapi: Core.Strapi) {
     });
     await strapi.documents('api::activity.activity').update({
       documentId: doc.documentId,
-      data: { title: a.en.title, location: a.en.location, description: a.en.description, deadline: a.en.deadline } as any,
+      // slug is a non-localized uid; set it explicitly on the en locale so the
+      // localized event URL resolves (Strapi does not propagate uid across locales).
+      data: { slug: a.slug, title: a.en.title, location: a.en.location, description: a.en.description, deadline: a.en.deadline } as any,
       locale: 'en',
       status: 'published',
     });
