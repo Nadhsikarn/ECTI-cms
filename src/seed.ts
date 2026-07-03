@@ -33,16 +33,16 @@ async function seedTags(strapi: Core.Strapi) {
   if (await countDocuments(strapi, 'api::tag.tag') > 0) return;
 
   const tags = [
-    { th: 'ประกาศ', en: 'Announcements' },
-    { th: 'เรียกรับบทความ', en: 'Call for Papers' },
-    { th: 'รางวัล', en: 'Awards' },
-    { th: 'สิ่งพิมพ์', en: 'Publications' },
-    { th: 'บทความ', en: 'Article' },
+    { key: 'announcements', th: 'ประกาศ', en: 'Announcements' },
+    { key: 'cfp', th: 'เรียกรับบทความ', en: 'Call for Papers' },
+    { key: 'awards', th: 'รางวัล', en: 'Awards' },
+    { key: 'publications', th: 'ผลงานตีพิมพ์', en: 'Publications' },
+    { key: 'article', th: 'บทความ', en: 'Article' },
   ];
 
   for (const t of tags) {
     const doc = await strapi.documents('api::tag.tag').create({
-      data: { name: t.th },
+      data: { name: t.th, key: t.key as any },
       locale: 'th',
       status: 'published',
     });
@@ -54,6 +54,19 @@ async function seedTags(strapi: Core.Strapi) {
     });
   }
   strapi.log.info('[seed] Tags created');
+}
+
+// Resolve tag documentIds from their stable keys (used to link news posts).
+async function getTagIdsByKeys(strapi: Core.Strapi, keys: string[]): Promise<string[]> {
+  const ids: string[] = [];
+  for (const key of keys) {
+    const tag = await (strapi.documents('api::tag.tag') as any).findFirst({
+      filters: { key: { $eq: key } },
+      locale: 'th',
+    });
+    if (tag?.documentId) ids.push(tag.documentId);
+  }
+  return ids;
 }
 
 // ─── News Posts ──────────────────────────────────────────────────────────────
@@ -76,6 +89,7 @@ async function seedNewsPosts(strapi: Core.Strapi) {
       },
       author: 'ECTI Secretariat',
       read_time_min: 3,
+      tags: ['cfp', 'announcements'],
     },
     {
       slug: 'ecti-award-2025-winners',
@@ -91,6 +105,7 @@ async function seedNewsPosts(strapi: Core.Strapi) {
       },
       author: 'ECTI Secretariat',
       read_time_min: 2,
+      tags: ['awards', 'announcements'],
     },
     {
       slug: 'ecti-transactions-special-issue',
@@ -106,12 +121,14 @@ async function seedNewsPosts(strapi: Core.Strapi) {
       },
       author: 'ECTI Editorial Board',
       read_time_min: 4,
+      tags: ['publications', 'cfp'],
     },
   ];
 
   for (const p of posts) {
+    const tagIds = await getTagIdsByKeys(strapi, p.tags);
     const doc = await strapi.documents('api::news-post.news-post').create({
-      data: { slug: p.slug, title: p.th.title, summary: p.th.summary, body: p.th.body, author: p.author, read_time_min: p.read_time_min },
+      data: { slug: p.slug, title: p.th.title, summary: p.th.summary, body: p.th.body, author: p.author, read_time_min: p.read_time_min, tags: tagIds },
       locale: 'th',
       status: 'published',
     });
