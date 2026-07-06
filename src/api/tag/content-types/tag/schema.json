@@ -24,6 +24,21 @@
         }
       }
     },
+    "key": {
+      "type": "enumeration",
+      "enum": [
+        "announcements",
+        "cfp",
+        "awards",
+        "publications",
+        "article"
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
     "news": {
       "type": "relation",
       "relation": "manyToMany",
