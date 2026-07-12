@@ -1,0 +1,29 @@
+{
+  "kind": "singleType",
+  "collectionName": "membership_applies",
+  "info": {
+    "singularName": "membership-apply",
+    "pluralName": "membership-applies",
+    "displayName": "Membership — Apply Link",
+    "description": "External membership application form link (e.g. JotForm) used by the 'Apply for Membership' button on the Membership page."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "form_url": {
+      "type": "string",
+      "regex": "^https?://.+",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    }
+  }
+}
