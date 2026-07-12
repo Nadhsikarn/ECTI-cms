@@ -874,6 +874,45 @@ export interface ApiMemberTypeMemberType extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiMembershipApplyMembershipApply
+  extends Struct.SingleTypeSchema {
+  collectionName: 'membership_applies';
+  info: {
+    description: "External membership application form link (e.g. JotForm) used by the 'Apply for Membership' button on the Membership page.";
+    displayName: 'Membership \u2014 Apply Link';
+    pluralName: 'membership-applies';
+    singularName: 'membership-apply';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    form_url: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::membership-apply.membership-apply'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiMilestoneMilestone extends Struct.CollectionTypeSchema {
   collectionName: 'milestones';
   info: {
@@ -1840,6 +1879,7 @@ declare module '@strapi/strapi' {
       'api::howto-join.howto-join': ApiHowtoJoinHowtoJoin;
       'api::journal.journal': ApiJournalJournal;
       'api::member-type.member-type': ApiMemberTypeMemberType;
+      'api::membership-apply.membership-apply': ApiMembershipApplyMembershipApply;
       'api::milestone.milestone': ApiMilestoneMilestone;
       'api::mission-vision.mission-vision': ApiMissionVisionMissionVision;
       'api::news-post.news-post': ApiNewsPostNewsPost;

@@ -24,6 +24,7 @@ export async function seed(strapi: Core.Strapi) {
   await seedJournals(strapi);
   await seedContact(strapi);
   await seedSocialLinks(strapi);
+  await seedMembershipApply(strapi);
 
   strapi.log.info('[seed] Done.');
 }
@@ -598,4 +599,30 @@ async function seedSocialLinks(strapi: Core.Strapi) {
     status: 'published',
   });
   strapi.log.info('[seed] Social links created');
+}
+
+// ─── Membership Apply Link (Single Type) ─────────────────────────────────────
+
+// The real JotForm URL is managed in the CMS (Single Types → "Membership — Apply Link").
+// Leave this empty so the button falls back to /contact until an editor sets the URL.
+const MEMBERSHIP_FORM_URL = '';
+
+async function seedMembershipApply(strapi: Core.Strapi) {
+  const existing = await (strapi.documents('api::membership-apply.membership-apply') as any).findFirst({ locale: 'th' });
+  if (existing) return;
+
+  const data = { form_url: MEMBERSHIP_FORM_URL };
+
+  const doc = await strapi.documents('api::membership-apply.membership-apply').create({
+    data,
+    locale: 'th',
+    status: 'published',
+  });
+  await strapi.documents('api::membership-apply.membership-apply').update({
+    documentId: doc.documentId,
+    data,
+    locale: 'en',
+    status: 'published',
+  });
+  strapi.log.info('[seed] Membership apply link created (set the URL in CMS: Membership — Apply Link)');
 }
