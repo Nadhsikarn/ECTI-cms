@@ -64,6 +64,7 @@ async function enablePublicPermissions(strapi: Core.Strapi) {
     'api::resource.resource',
     'api::journal.journal',
     'api::contact.contact',
+    'api::social-link.social-link',
   ];
 
   const actions = ['find', 'findOne'];

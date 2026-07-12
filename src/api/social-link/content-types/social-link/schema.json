@@ -1,0 +1,40 @@
+{
+  "kind": "singleType",
+  "collectionName": "social_links",
+  "info": {
+    "singularName": "social-link",
+    "pluralName": "social-links",
+    "displayName": "Social Links",
+    "description": "Social media profile URLs shown as icons in the site footer. Leave a field empty to hide that icon."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "facebook_url": {
+      "type": "string",
+      "regex": "^https?://.+",
+      "pluginOptions": { "i18n": { "localized": false } }
+    },
+    "x_url": {
+      "type": "string",
+      "regex": "^https?://.+",
+      "pluginOptions": { "i18n": { "localized": false } }
+    },
+    "linkedin_url": {
+      "type": "string",
+      "regex": "^https?://.+",
+      "pluginOptions": { "i18n": { "localized": false } }
+    },
+    "youtube_url": {
+      "type": "string",
+      "regex": "^https?://.+",
+      "pluginOptions": { "i18n": { "localized": false } }
+    }
+  }
+}

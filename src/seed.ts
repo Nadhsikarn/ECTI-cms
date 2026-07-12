@@ -23,6 +23,7 @@ export async function seed(strapi: Core.Strapi) {
   await seedResources(strapi);
   await seedJournals(strapi);
   await seedContact(strapi);
+  await seedSocialLinks(strapi);
 
   strapi.log.info('[seed] Done.');
 }
@@ -568,4 +569,33 @@ async function seedContact(strapi: Core.Strapi) {
     status: 'published',
   });
   strapi.log.info('[seed] Contact created');
+}
+
+// ─── Social Links (Single Type) ──────────────────────────────────────────────
+
+// Initial values migrated from the previously hardcoded footer. Editors can
+// update these (or clear a field to hide its icon) in CMS → "Social Links".
+async function seedSocialLinks(strapi: Core.Strapi) {
+  const existing = await (strapi.documents('api::social-link.social-link') as any).findFirst({ locale: 'th' });
+  if (existing) return;
+
+  const data = {
+    facebook_url: 'https://facebook.com/ecaboratory',
+    x_url: 'https://x.com/ecti',
+    linkedin_url: 'https://linkedin.com/company/ecti',
+    youtube_url: '',
+  };
+
+  const doc = await strapi.documents('api::social-link.social-link').create({
+    data,
+    locale: 'th',
+    status: 'published',
+  });
+  await strapi.documents('api::social-link.social-link').update({
+    documentId: doc.documentId,
+    data,
+    locale: 'en',
+    status: 'published',
+  });
+  strapi.log.info('[seed] Social links created');
 }
