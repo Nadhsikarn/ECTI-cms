@@ -828,12 +828,6 @@ export interface ApiMemberTypeMemberType extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
-    annual_fee: Schema.Attribute.Integer &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: false;
-        };
-      }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -843,13 +837,19 @@ export interface ApiMemberTypeMemberType extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    entrance_fee: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
     icon: Schema.Attribute.Media<'images'> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: false;
         };
       }>;
-    lifetime_fee: Schema.Attribute.Integer &
+    key: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: false;
@@ -860,6 +860,12 @@ export interface ApiMemberTypeMemberType extends Struct.CollectionTypeSchema {
       'oneToMany',
       'api::member-type.member-type'
     >;
+    membership_fee: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
     publishedAt: Schema.Attribute.DateTime;
     type: Schema.Attribute.String &
       Schema.Attribute.Required &
@@ -907,6 +913,196 @@ export interface ApiMembershipApplyMembershipApply
       'api::membership-apply.membership-apply'
     >;
     publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiMembershipCreditMembershipCredit
+  extends Struct.SingleTypeSchema {
+  collectionName: 'membership_credits';
+  info: {
+    description: 'Short summary of the ECTI Credits system shown on the Membership page.';
+    displayName: 'Membership \u2014 ECTI Credits';
+    pluralName: 'membership-credits';
+    singularName: 'membership-credit';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::membership-credit.membership-credit'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiMembershipDocumentMembershipDocument
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'membership_documents';
+  info: {
+    description: 'Downloadable membership documents (application/renewal forms, bylaws) shown on the Membership page.';
+    displayName: 'Membership \u2014 Document';
+    pluralName: 'membership-documents';
+    singularName: 'membership-document';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    file: Schema.Attribute.Media<'files' | 'images'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    key: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    link: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::membership-document.membership-document'
+    >;
+    order: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiMembershipPaymentMembershipPayment
+  extends Struct.SingleTypeSchema {
+  collectionName: 'membership_payments';
+  info: {
+    description: 'Bank transfer details and application channels shown on the Membership page.';
+    displayName: 'Membership \u2014 Payment & Channels';
+    pluralName: 'membership-payments';
+    singularName: 'membership-payment';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    account_name: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    account_number: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    bank_branch: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    bank_name: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::membership-payment.membership-payment'
+    >;
+    note: Schema.Attribute.Text &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    online_portal_url: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    payment_email: Schema.Attribute.Email &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    swift_code: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1880,6 +2076,9 @@ declare module '@strapi/strapi' {
       'api::journal.journal': ApiJournalJournal;
       'api::member-type.member-type': ApiMemberTypeMemberType;
       'api::membership-apply.membership-apply': ApiMembershipApplyMembershipApply;
+      'api::membership-credit.membership-credit': ApiMembershipCreditMembershipCredit;
+      'api::membership-document.membership-document': ApiMembershipDocumentMembershipDocument;
+      'api::membership-payment.membership-payment': ApiMembershipPaymentMembershipPayment;
       'api::milestone.milestone': ApiMilestoneMilestone;
       'api::mission-vision.mission-vision': ApiMissionVisionMissionVision;
       'api::news-post.news-post': ApiNewsPostNewsPost;

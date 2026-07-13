@@ -25,6 +25,9 @@ export async function seed(strapi: Core.Strapi) {
   await seedContact(strapi);
   await seedSocialLinks(strapi);
   await seedMembershipApply(strapi);
+  await seedMembershipPayment(strapi);
+  await seedMembershipCredit(strapi);
+  await seedMembershipDocuments(strapi);
 
   strapi.log.info('[seed] Done.');
 }
@@ -359,18 +362,56 @@ async function seedBenefits(strapi: Core.Strapi) {
 // ─── Member Types ────────────────────────────────────────────────────────────
 
 async function seedMemberTypes(strapi: Core.Strapi) {
-  if (await countDocuments(strapi, 'api::member-type.member-type') > 0) return;
-
+  // Canonical member types from the ECTI bylaws. Two categories: juristic
+  // (corporate) and non-juristic (regular / student / fellow / honorary).
+  // Fees: only Regular and Student are currently known; the others are left
+  // blank for editors to fill in via CMS.
   const types = [
-    { th: { type: 'สมาชิกสามัญ', eligibility: 'ผู้สำเร็จการศึกษาระดับปริญญาตรีขึ้นไปในสาขาที่เกี่ยวข้อง หรือผู้ที่ทำงานในสาขาวิศวกรรมและเทคโนโลยี' }, en: { type: 'Regular Member', eligibility: 'Persons with a bachelor\'s degree or higher in a related field, or those working in engineering and technology.' }, annual_fee: 500, lifetime_fee: 5000 },
-    { th: { type: 'สมาชิกวิสามัญ', eligibility: 'นิสิตนักศึกษาที่กำลังศึกษาในระดับปริญญาตรี โท หรือเอก ในสาขาที่เกี่ยวข้อง' }, en: { type: 'Associate Member', eligibility: 'Students currently enrolled in a bachelor\'s, master\'s, or doctoral program in a related field.' }, annual_fee: 200, lifetime_fee: 0 },
-    { th: { type: 'สมาชิกกิตติมศักดิ์', eligibility: 'บุคคลผู้ทรงคุณวุฒิที่ได้รับการเชิดชูเกียรติโดยมติของคณะกรรมการสมาคม' }, en: { type: 'Honorary Member', eligibility: 'Distinguished individuals honored by resolution of the association\'s board of directors.' }, annual_fee: 0, lifetime_fee: 0 },
-    { th: { type: 'สมาชิกนิติบุคคล', eligibility: 'บริษัท องค์กร หรือหน่วยงานที่ดำเนินกิจการในสาขาที่เกี่ยวข้องกับพันธกิจของสมาคม' }, en: { type: 'Corporate Member', eligibility: 'Companies, organizations, or agencies operating in fields related to the association\'s mission.' }, annual_fee: 5000, lifetime_fee: 0 },
+    {
+      key: 'regular',
+      th: { type: 'สมาชิกสามัญ', eligibility: 'ผู้จบการศึกษาระดับปริญญาตรีขึ้นไปในสาขาวิศวกรรมไฟฟ้า คอมพิวเตอร์ อิเล็กทรอนิกส์ สื่อสารโทรคมนาคม เทคโนโลยีสารสนเทศ หรือสาขาที่เกี่ยวข้อง (สาขาอื่นต้องได้รับการรับรองจากสมาชิกสามัญหรือวุฒิสมาชิกอย่างน้อย 3 คน)' },
+      en: { type: 'Regular Member', eligibility: "Holders of a bachelor's degree or higher in electrical, computer, electronics, telecommunications, or information technology engineering, or a related field (other fields require endorsement by at least 3 regular or fellow members)." },
+      membership_fee: 1000, entrance_fee: 200,
+    },
+    {
+      key: 'student',
+      th: { type: 'สมาชิกนักศึกษา', eligibility: 'นักเรียนหรือนักศึกษาที่กำลังศึกษาอยู่ (ผู้ยังไม่บรรลุนิติภาวะต้องได้รับการรับรองจากผู้ปกครอง)' },
+      en: { type: 'Student Member', eligibility: 'Currently enrolled students or pupils (minors require parental consent).' },
+      membership_fee: 200, entrance_fee: 100,
+    },
+    {
+      key: 'fellow',
+      th: { type: 'วุฒิสมาชิก', eligibility: 'สมาชิกสามัญมาแล้วไม่ต่ำกว่า 8 ปี หรือเคยเป็นกรรมการอำนวยการรวมอย่างน้อย 4 ปี และมีผลงานวิชาการหรือประสบการณ์วิชาชีพเป็นที่ประจักษ์ โดยคณะกรรมการอำนวยการลงมติเห็นชอบ' },
+      en: { type: 'Fellow Member', eligibility: 'Regular members for at least 8 years, or former executive board members for a total of at least 4 years, with recognized academic or professional achievements, approved by resolution of the executive board.' },
+      membership_fee: null, entrance_fee: null,
+    },
+    {
+      key: 'honorary',
+      th: { type: 'สมาชิกกิตติมศักดิ์', eligibility: 'บุคคลผู้ทรงเกียรติ ทรงคุณวุฒิ หรือผู้มีอุปการคุณแก่สมาคม ซึ่งคณะกรรมการอำนวยการลงมติเชิญเข้าเป็นสมาชิก' },
+      en: { type: 'Honorary Member', eligibility: 'Distinguished or highly qualified individuals, or benefactors of the association, invited to membership by resolution of the executive board.' },
+      membership_fee: null, entrance_fee: null,
+    },
+    {
+      key: 'corporate',
+      th: { type: 'สมาชิกนิติบุคคล', eligibility: 'สถาบันการศึกษา หน่วยงานของรัฐหรือเอกชน บริษัท และห้างร้านที่ให้การสนับสนุนสมาคม ซึ่งคณะกรรมการอำนวยการลงมติรับเข้าเป็นสมาชิก' },
+      en: { type: 'Corporate Member', eligibility: 'Educational institutions, government or private agencies, companies, and businesses that support the association, admitted by resolution of the executive board.' },
+      membership_fee: null, entrance_fee: null,
+    },
   ];
 
+  // One-time cleanup: drop legacy rows seeded before the `key` field existed.
+  // deleteMany on the low-level db query removes every matching row (draft +
+  // published, all locales); the document service delete leaves them behind.
+  await strapi.db.query('api::member-type.member-type').deleteMany({ where: { key: null } });
+
   for (const t of types) {
+    const found = await strapi.db
+      .query('api::member-type.member-type')
+      .findOne({ where: { key: t.key } });
+    if (found) continue; // already seeded — don't clobber editor changes
+
     const doc = await strapi.documents('api::member-type.member-type').create({
-      data: { type: t.th.type, eligibility: t.th.eligibility, annual_fee: t.annual_fee, lifetime_fee: t.lifetime_fee },
+      data: { key: t.key, type: t.th.type, eligibility: t.th.eligibility, membership_fee: t.membership_fee, entrance_fee: t.entrance_fee },
       locale: 'th',
       status: 'published',
     });
@@ -625,4 +666,110 @@ async function seedMembershipApply(strapi: Core.Strapi) {
     status: 'published',
   });
   strapi.log.info('[seed] Membership apply link created (set the URL in CMS: Membership — Apply Link)');
+}
+
+// ─── Membership Payment & Channels (Single Type) ─────────────────────────────
+
+// Bank transfer details and application channels shown on the Membership page.
+// Initial values migrated from the old site (https://ecti-thailand.org/membership/);
+// editors can update them in CMS → "Membership — Payment & Channels".
+async function seedMembershipPayment(strapi: Core.Strapi) {
+  const existing = await (strapi.documents('api::membership-payment.membership-payment') as any).findFirst({ locale: 'th' });
+  if (existing?.account_number) return;
+
+  const th = {
+    bank_name: 'ธนาคารกสิกรไทย (KBANK)',
+    bank_branch: 'สาขาคลองหลวง',
+    account_name: 'สมาคม ECTI',
+    account_number: '178-2-95444-6',
+    swift_code: 'KASITHBK',
+    payment_email: 'ecti.payment@gmail.com',
+    online_portal_url: 'https://member.ecti-thailand.org',
+    note: 'การสมัครจะได้รับการยืนยันเมื่อสมาคมได้รับชำระเงินเรียบร้อยแล้วเท่านั้น',
+  };
+  const en = {
+    bank_name: 'KASIKORNBANK PCL (KBANK)',
+    bank_branch: 'Khlong Luang Branch',
+    account_name: 'ECTI Association',
+    note: 'Registration is confirmed only upon receipt of payment.',
+  };
+
+  const doc = await strapi.documents('api::membership-payment.membership-payment').create({
+    data: th,
+    locale: 'th',
+    status: 'published',
+  });
+  await strapi.documents('api::membership-payment.membership-payment').update({
+    documentId: doc.documentId,
+    data: en,
+    locale: 'en',
+    status: 'published',
+  });
+  strapi.log.info('[seed] Membership payment created');
+}
+
+// ─── Membership ECTI Credits (Single Type) ───────────────────────────────────
+
+// Concise summary of the ECTI Credits system (condensed from the old site).
+// Editors can refine the wording in CMS → "Membership — ECTI Credits".
+async function seedMembershipCredit(strapi: Core.Strapi) {
+  const existing = await (strapi.documents('api::membership-credit.membership-credit') as any).findFirst({ locale: 'th' });
+  if (existing?.title) return;
+
+  const th = {
+    title: 'ระบบ ECTI Credits',
+    description:
+      'สมาชิกสามารถสะสม ECTI Credits จากการมีส่วนร่วมในกิจกรรมและงานของสมาคม โดยเครดิตที่สะสมได้สามารถนำไปใช้ลดหย่อนหรือยกเว้นค่าธรรมเนียมสมาชิก แลกของที่ระลึกของสมาคม และใช้ประกอบการพิจารณาตำแหน่งต่าง ๆ เช่น กรรมการหรือวิทยากรรับเชิญ ทั้งนี้เครดิตสามารถโอนย้ายได้เมื่อเปลี่ยนสถานะสมาชิก (เช่น จากสมาชิกนักศึกษาเป็นสมาชิกสามัญ) แต่ไม่สามารถโอนให้ผู้อื่นได้',
+  };
+  const en = {
+    title: 'ECTI Credits',
+    description:
+      "Members earn ECTI Credits by contributing to the association's activities and work. Credits can be used to reduce or waive membership fees, redeem association merchandise, and count toward consideration for roles such as committee member or invited speaker. Credits transfer when a member changes status (for example, from student to regular member) but cannot be transferred to another person.",
+  };
+
+  const doc = await strapi.documents('api::membership-credit.membership-credit').create({
+    data: th,
+    locale: 'th',
+    status: 'published',
+  });
+  await strapi.documents('api::membership-credit.membership-credit').update({
+    documentId: doc.documentId,
+    data: en,
+    locale: 'en',
+    status: 'published',
+  });
+  strapi.log.info('[seed] Membership credits created');
+}
+
+// ─── Membership Documents (Collection Type) ──────────────────────────────────
+
+// Placeholder rows for the downloadable membership documents. Editors attach the
+// actual PDF (field "file") and publish in CMS → "Membership — Document".
+// Rows without a file or link are hidden on the front.
+async function seedMembershipDocuments(strapi: Core.Strapi) {
+  const docs = [
+    { key: 'application-form', order: 1, th: 'ใบสมัครสมาชิก', en: 'Membership Application Form' },
+    { key: 'renewal-form', order: 2, th: 'ใบต่ออายุสมาชิก', en: 'Membership Renewal Form' },
+    { key: 'constitution', order: 3, th: 'ข้อบังคับสมาคม', en: 'Association Constitution' },
+  ];
+
+  for (const d of docs) {
+    const found = await strapi.db
+      .query('api::membership-document.membership-document')
+      .findOne({ where: { key: d.key } });
+    if (found) continue; // already seeded — don't clobber uploaded files
+
+    const doc = await strapi.documents('api::membership-document.membership-document').create({
+      data: { key: d.key, title: d.th, order: d.order },
+      locale: 'th',
+      status: 'published',
+    });
+    await strapi.documents('api::membership-document.membership-document').update({
+      documentId: doc.documentId,
+      data: { title: d.en },
+      locale: 'en',
+      status: 'published',
+    });
+  }
+  strapi.log.info('[seed] Membership documents created');
 }
