@@ -1,10 +1,11 @@
 {
   "kind": "collectionType",
-  "collectionName": "member_types",
+  "collectionName": "membership_documents",
   "info": {
-    "singularName": "member-type",
-    "pluralName": "member-types",
-    "displayName": "Membership — Member Type"
+    "singularName": "membership-document",
+    "pluralName": "membership-documents",
+    "displayName": "Membership — Document",
+    "description": "Downloadable membership documents (application/renewal forms, bylaws) shown on the Membership page."
   },
   "options": {
     "draftAndPublish": true
@@ -23,7 +24,7 @@
         }
       }
     },
-    "type": {
+    "title": {
       "type": "string",
       "required": true,
       "pluginOptions": {
@@ -32,36 +33,30 @@
         }
       }
     },
-    "eligibility": {
-      "type": "text",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
-    },
-    "membership_fee": {
-      "type": "integer",
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      }
-    },
-    "entrance_fee": {
-      "type": "integer",
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      }
-    },
-    "icon": {
+    "file": {
       "type": "media",
       "multiple": false,
       "allowedTypes": [
+        "files",
         "images"
       ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
+    "link": {
+      "type": "string",
+      "regex": "^https?://.+",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
+    "order": {
+      "type": "integer",
       "pluginOptions": {
         "i18n": {
           "localized": false
