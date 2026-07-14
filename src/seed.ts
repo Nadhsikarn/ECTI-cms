@@ -595,13 +595,13 @@ async function seedConferences(strapi: Core.Strapi) {
         title: 'ECTI-CON',
         description:
           'ECTI-CON (International Conference on Electrical Engineering/Electronics, Computer, Telecommunications and Information Technology) เป็นงานประชุมวิชาการระดับนานาชาติและเป็นงานหลักของสมาคม ECTI จัดต่อเนื่องเป็นประจำทุกปีตั้งแต่ปี พ.ศ. 2547\n\nงานครอบคลุมงานวิจัยด้านวิศวกรรมไฟฟ้า อิเล็กทรอนิกส์ คอมพิวเตอร์ โทรคมนาคม และเทคโนโลยีสารสนเทศ เป็นเวทีให้นักวิจัยทั้งในและต่างประเทศได้นำเสนอผลงานและแลกเปลี่ยนความรู้ โดยบทความที่ผ่านการพิจารณาจะได้รับการเผยแพร่ในฐานข้อมูล IEEE Xplore',
-        years: 'จัดทุกปีตั้งแต่ พ.ศ. 2547 (ครั้งที่ 1–19)',
+        years: '2547–ปัจจุบัน',
       },
       en: {
         title: 'ECTI-CON',
         description:
           "ECTI-CON (International Conference on Electrical Engineering/Electronics, Computer, Telecommunications and Information Technology) is the association's flagship international conference, held every year since 2004.\n\nIt spans research in electrical engineering, electronics, computer, telecommunications, and information technology, giving researchers from Thailand and abroad a venue to present their work and exchange knowledge. Accepted papers are published in the IEEE Xplore database.",
-        years: 'Held annually since 2004 (1st–19th edition)',
+        years: '2004–present',
       },
     },
     {
@@ -610,13 +610,13 @@ async function seedConferences(strapi: Core.Strapi) {
         title: 'ECTI-CARD',
         description:
           'ECTI-CARD (Conference on Application Research and Development) เป็นงานประชุมวิชาการระดับชาติที่เน้นงานวิจัยและพัฒนาเชิงประยุกต์ จัดต่อเนื่องเป็นประจำทุกปีตั้งแต่ปี พ.ศ. 2552\n\nงานมุ่งส่งเสริมการนำผลงานวิจัยไปประยุกต์ใช้ได้จริง และเชื่อมโยงงานวิจัยเข้ากับภาคอุตสาหกรรมและชุมชน เปิดโอกาสให้นักวิจัย นักวิชาการ และนักศึกษาได้เผยแพร่ผลงานและสร้างเครือข่ายความร่วมมือทางวิชาการ',
-        years: 'จัดทุกปีตั้งแต่ พ.ศ. 2552 (ครั้งที่ 1–15)',
+        years: '2552–ปัจจุบัน',
       },
       en: {
         title: 'ECTI-CARD',
         description:
           'ECTI-CARD (Conference on Application Research and Development) is a national conference focused on applied research and development, held every year since 2009.\n\nIt promotes turning research into practical use and connects academic work with industry and communities, giving researchers, academics, and students a platform to share their work and build collaborative networks.',
-        years: 'Held annually since 2009 (1st–15th edition)',
+        years: '2009–present',
       },
     },
     {
