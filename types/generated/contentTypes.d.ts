@@ -638,6 +638,63 @@ export interface ApiBoardMemberBoardMember extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiConferenceConference extends Struct.CollectionTypeSchema {
+  collectionName: 'conferences';
+  info: {
+    displayName: 'Publications \u2014 Conferences';
+    pluralName: 'conferences';
+    singularName: 'conference';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::conference.conference'
+    >;
+    order: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    years: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+  };
+}
+
 export interface ApiContactContact extends Struct.SingleTypeSchema {
   collectionName: 'contacts';
   info: {
@@ -2071,6 +2128,7 @@ declare module '@strapi/strapi' {
       'api::activity.activity': ApiActivityActivity;
       'api::benefit.benefit': ApiBenefitBenefit;
       'api::board-member.board-member': ApiBoardMemberBoardMember;
+      'api::conference.conference': ApiConferenceConference;
       'api::contact.contact': ApiContactContact;
       'api::howto-join.howto-join': ApiHowtoJoinHowtoJoin;
       'api::journal.journal': ApiJournalJournal;
