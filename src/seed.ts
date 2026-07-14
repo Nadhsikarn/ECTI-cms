@@ -22,6 +22,7 @@ export async function seed(strapi: Core.Strapi) {
   await seedQuestions(strapi);
   await seedResources(strapi);
   await seedJournals(strapi);
+  await seedConferences(strapi);
   await seedContact(strapi);
   await seedSocialLinks(strapi);
   await seedMembershipApply(strapi);
@@ -579,6 +580,91 @@ async function seedJournals(strapi: Core.Strapi) {
     });
   }
   strapi.log.info('[seed] Journals created');
+}
+
+// ─── Conferences (Publications) ──────────────────────────────────────────────
+// Regular ECTI conferences: ECTI-CON, ECTI-CARD, ITC-CSCC, ICA-SYMP.
+
+async function seedConferences(strapi: Core.Strapi) {
+  if (await countDocuments(strapi, 'api::conference.conference') > 0) return;
+
+  const conferences = [
+    {
+      order: 1,
+      th: {
+        title: 'ECTI-CON',
+        description:
+          'ECTI-CON (International Conference on Electrical Engineering/Electronics, Computer, Telecommunications and Information Technology) เป็นงานประชุมวิชาการระดับนานาชาติและเป็นงานหลักของสมาคม ECTI จัดต่อเนื่องเป็นประจำทุกปีตั้งแต่ปี พ.ศ. 2547\n\nงานครอบคลุมงานวิจัยด้านวิศวกรรมไฟฟ้า อิเล็กทรอนิกส์ คอมพิวเตอร์ โทรคมนาคม และเทคโนโลยีสารสนเทศ เป็นเวทีให้นักวิจัยทั้งในและต่างประเทศได้นำเสนอผลงานและแลกเปลี่ยนความรู้ โดยบทความที่ผ่านการพิจารณาจะได้รับการเผยแพร่ในฐานข้อมูล IEEE Xplore',
+        years: '2547–ปัจจุบัน',
+      },
+      en: {
+        title: 'ECTI-CON',
+        description:
+          "ECTI-CON (International Conference on Electrical Engineering/Electronics, Computer, Telecommunications and Information Technology) is the association's flagship international conference, held every year since 2004.\n\nIt spans research in electrical engineering, electronics, computer, telecommunications, and information technology, giving researchers from Thailand and abroad a venue to present their work and exchange knowledge. Accepted papers are published in the IEEE Xplore database.",
+        years: '2004–present',
+      },
+    },
+    {
+      order: 2,
+      th: {
+        title: 'ECTI-CARD',
+        description:
+          'ECTI-CARD (Conference on Application Research and Development) เป็นงานประชุมวิชาการระดับชาติที่เน้นงานวิจัยและพัฒนาเชิงประยุกต์ จัดต่อเนื่องเป็นประจำทุกปีตั้งแต่ปี พ.ศ. 2552\n\nงานมุ่งส่งเสริมการนำผลงานวิจัยไปประยุกต์ใช้ได้จริง และเชื่อมโยงงานวิจัยเข้ากับภาคอุตสาหกรรมและชุมชน เปิดโอกาสให้นักวิจัย นักวิชาการ และนักศึกษาได้เผยแพร่ผลงานและสร้างเครือข่ายความร่วมมือทางวิชาการ',
+        years: '2552–ปัจจุบัน',
+      },
+      en: {
+        title: 'ECTI-CARD',
+        description:
+          'ECTI-CARD (Conference on Application Research and Development) is a national conference focused on applied research and development, held every year since 2009.\n\nIt promotes turning research into practical use and connects academic work with industry and communities, giving researchers, academics, and students a platform to share their work and build collaborative networks.',
+        years: '2009–present',
+      },
+    },
+    {
+      order: 3,
+      th: {
+        title: 'ITC-CSCC',
+        description:
+          'ITC-CSCC (International Technical Conference on Circuits/Systems, Computers and Communications) เป็นงานประชุมวิชาการระดับนานาชาติด้านวงจร ระบบ คอมพิวเตอร์ และการสื่อสาร ที่จัดร่วมกับสมาคมวิชาการในต่างประเทศและหมุนเวียนประเทศเจ้าภาพ\n\nสมาคม ECTI ร่วมเป็นเจ้าภาพจัดงานนี้ ซึ่งเป็นเวทีสำคัญให้นักวิจัยได้นำเสนอผลงานและสร้างความร่วมมือทางวิชาการในระดับนานาชาติ',
+        years: '2553, 2557, 2561',
+      },
+      en: {
+        title: 'ITC-CSCC',
+        description:
+          'ITC-CSCC (International Technical Conference on Circuits/Systems, Computers and Communications) is an international conference on circuits, systems, computers, and communications, co-organized with academic societies abroad and rotated among host countries.\n\nThe ECTI Association is one of its co-organizers, and the conference serves as a venue for researchers to present their work and build international academic collaboration.',
+        years: '2010, 2014, 2018',
+      },
+    },
+    {
+      order: 4,
+      th: {
+        title: 'ICA-SYMP',
+        description:
+          'ICA-SYMP (International Symposium on Instrumentation, Control, Artificial Intelligence, and Robotics) เป็นงานประชุมวิชาการระดับนานาชาติด้านระบบวัดคุม การควบคุม ปัญญาประดิษฐ์ และหุ่นยนต์\n\nเป็นงานที่ค่อนข้างใหม่ เริ่มจัดในปี พ.ศ. 2566 เพื่อรองรับความสนใจที่เพิ่มขึ้นในด้านปัญญาประดิษฐ์และระบบอัตโนมัติ เปิดเวทีให้นักวิจัยได้นำเสนอผลงานและแลกเปลี่ยนความรู้ในสาขาที่กำลังเติบโต',
+        years: '2566, 2568',
+      },
+      en: {
+        title: 'ICA-SYMP',
+        description:
+          'ICA-SYMP (International Symposium on Instrumentation, Control, Artificial Intelligence, and Robotics) is an international symposium covering instrumentation, control systems, artificial intelligence, and robotics.\n\nA relatively new event first held in 2023, it responds to growing interest in AI and automation, giving researchers a venue to present their work and exchange knowledge in these fast-growing fields.',
+        years: '2023, 2025',
+      },
+    },
+  ];
+
+  for (const c of conferences) {
+    const doc = await strapi.documents('api::conference.conference').create({
+      data: { title: c.th.title, description: c.th.description, years: c.th.years, order: c.order },
+      locale: 'th',
+      status: 'published',
+    });
+    await strapi.documents('api::conference.conference').update({
+      documentId: doc.documentId,
+      data: { title: c.en.title, description: c.en.description, years: c.en.years },
+      locale: 'en',
+      status: 'published',
+    });
+  }
+  strapi.log.info('[seed] Conferences created');
 }
 
 // ─── Contact (Single Type) ───────────────────────────────────────────────────

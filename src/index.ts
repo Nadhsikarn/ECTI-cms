@@ -63,6 +63,7 @@ async function enablePublicPermissions(strapi: Core.Strapi) {
     'api::question.question',
     'api::resource.resource',
     'api::journal.journal',
+    'api::conference.conference',
     'api::contact.contact',
     'api::social-link.social-link',
     'api::membership-apply.membership-apply',
