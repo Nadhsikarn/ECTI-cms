@@ -1709,6 +1709,7 @@ export interface ApiSubscriberSubscriber extends Struct.CollectionTypeSchema {
 export interface ApiTagTag extends Struct.CollectionTypeSchema {
   collectionName: 'tags';
   info: {
+    description: 'Tags shown on the News page. Pick by format, not topic \u2014 everything ECTI posts is academic: announcements = general notices; cfp = open call for submissions with a deadline; academic = conference/lecture/seminar you attend; training = hands-on course or workshop you take part in; article = editorial piece.';
     displayName: 'News \u2014 Tag';
     pluralName: 'tags';
     singularName: 'tag';
@@ -1726,7 +1727,7 @@ export interface ApiTagTag extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     key: Schema.Attribute.Enumeration<
-      ['announcements', 'cfp', 'awards', 'publications', 'article']
+      ['announcements', 'cfp', 'academic', 'training', 'article']
     > &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
