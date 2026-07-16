@@ -41,8 +41,8 @@ async function seedTags(strapi: Core.Strapi) {
   const tags = [
     { key: 'announcements', th: 'ประกาศ', en: 'Announcements' },
     { key: 'cfp', th: 'เรียกรับบทความ', en: 'Call for Papers' },
-    { key: 'awards', th: 'รางวัล', en: 'Awards' },
-    { key: 'publications', th: 'ผลงานตีพิมพ์', en: 'Publications' },
+    { key: 'academic', th: 'กิจกรรมวิชาการ', en: 'Academic Events' },
+    { key: 'training', th: 'อบรม', en: 'Training' },
     { key: 'article', th: 'บทความ', en: 'Article' },
   ];
 
@@ -111,7 +111,7 @@ async function seedNewsPosts(strapi: Core.Strapi) {
       },
       author: 'ECTI Secretariat',
       read_time_min: 2,
-      tags: ['awards', 'announcements'],
+      tags: ['announcements'],
     },
     {
       slug: 'ecti-transactions-special-issue',
@@ -127,7 +127,7 @@ async function seedNewsPosts(strapi: Core.Strapi) {
       },
       author: 'ECTI Editorial Board',
       read_time_min: 4,
-      tags: ['publications', 'cfp'],
+      tags: ['cfp'],
     },
   ];
 
