@@ -194,10 +194,8 @@ async function uploadRemoteImage(strapi: Core.Strapi, url: string, name: string)
 async function seedBoardMembers(strapi: Core.Strapi) {
   const uid = 'api::board-member.board-member';
 
-  // Clear out the mock members from the pre-term seed. Match the known mock
-  // names — not just `term: null` — so a member an admin typed in before this
-  // field existed survives. Both locales listed: th and en are separate rows.
-  // (documents().delete leaves rows with no draft version, so use db.query.)
+  // Names of the pre-term mock seed data, used by the cleanup below. Both
+  // locales listed: th and en are separate rows.
   const MOCK_NAMES = [
     'ศ.ดร. สมชาย วิทยากร', 'Prof. Dr. Somchai Wittayakorn',
     'รศ.ดร. สุนีย์ รัตนวงศ์', 'Assoc. Prof. Dr. Sunee Rattanawong',
@@ -209,9 +207,6 @@ async function seedBoardMembers(strapi: Core.Strapi) {
     'ศ.ดร. ธีระ อภิวัฒน์กุล', 'Prof. Dr. Theera Apivatanakul',
     'รศ.ดร. นลินรัตน์ กิตติวงศ์', 'Assoc. Prof. Dr. Nalinrat Kittiwong',
   ];
-  await strapi.db.query(uid).deleteMany({
-    where: { name: { $in: MOCK_NAMES }, term: { $null: true } },
-  });
 
   const members = [
     { th: { name: 'รศ. ดร.อนันต์ ผลเพิ่ม', role: 'นายกสมาคม', institution: 'มหาวิทยาลัยเกษตรศาสตร์' }, en: { name: 'Assoc. Prof. Dr. Anan Phonphoem', role: 'ECTI President', institution: 'Kasetsart University' }, image: 'Anan-2.jpg' },
@@ -233,6 +228,29 @@ async function seedBoardMembers(strapi: Core.Strapi) {
     { th: { name: 'ศ. ดร.ชานนท์ วริสาร', role: 'กรรมการสายวิชาการโทรคมนาคม', institution: 'สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง' }, en: { name: 'Prof. Dr. Chanon Warisarn', role: 'Technical Chair (Telecommunications)', institution: "King Mongkut's Institute of Technology Ladkrabang" }, image: 'Chanon-4.jpg' },
     { th: { name: 'ผศ.ดร.พันศักดิ์ เทียนวิบูลย์', role: 'กรรมการสายวิชาการประมวลผลสัญญาณ', institution: 'มหาวิทยาลัยเกษตรศาสตร์' }, en: { name: 'Asst. Prof. Dr. Phunsak Thiennviboon', role: 'Technical Chair (Signal Processing)', institution: 'Kasetsart University' }, image: 'Phunsak-1.jpg' },
   ];
+
+  // Remove null-term rows of every seed-managed name: the old mocks, and
+  // null-term copies of the real members. The latter exist because a Strapi
+  // Cloud deploy can replace the container mid-seed — the first boot on
+  // 2026-07-17 ran before the term column migration applied, created 15
+  // members with term = null, and the (name, term) guard below can't see
+  // them, so the second boot duplicated everyone. Scoped to known names so a
+  // member an admin typed in themselves survives.
+  // (documents().delete leaves rows with no draft version, so use db.query.)
+  const seedManagedNames = [
+    ...MOCK_NAMES,
+    ...members.flatMap((m) => [m.th.name, m.en.name]),
+  ];
+  await strapi.db.query(uid).deleteMany({
+    where: { name: { $in: seedManagedNames }, term: { $null: true } },
+  });
+
+  // Photo morphs of rows deleted above would linger — clear the orphans.
+  await strapi.db.connection.raw(`
+    DELETE FROM files_related_mph
+    WHERE related_type = 'api::board-member.board-member'
+      AND related_id NOT IN (SELECT id FROM board_members)
+  `);
 
   for (const m of members) {
     const found = await strapi.db
