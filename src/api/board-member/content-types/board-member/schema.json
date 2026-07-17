@@ -40,12 +40,11 @@
         }
       }
     },
-    "committee": {
-      "type": "enumeration",
-      "enum": [
-        "exec",
-        "academic",
-        "publications"
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
       ],
       "pluginOptions": {
         "i18n": {
@@ -53,12 +52,10 @@
         }
       }
     },
-    "image": {
-      "type": "media",
-      "multiple": false,
-      "allowedTypes": [
-        "images"
-      ],
+    "term": {
+      "type": "string",
+      "required": true,
+      "regex": "^\\d{4}-\\d{4}$",
       "pluginOptions": {
         "i18n": {
           "localized": false

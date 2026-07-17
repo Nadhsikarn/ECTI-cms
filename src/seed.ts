@@ -1,5 +1,8 @@
 // @ts-nocheck
 import type { Core } from '@strapi/strapi';
+import os from 'node:os';
+import path from 'node:path';
+import fs from 'node:fs/promises';
 
 async function countDocuments(strapi: Core.Strapi, uid: Parameters<Core.Strapi['documents']>[0]) {
   const result = await strapi.documents(uid).findMany({ locale: 'th' });
@@ -152,35 +155,134 @@ async function seedNewsPosts(strapi: Core.Strapi) {
 
 // ─── Board Members ───────────────────────────────────────────────────────────
 
+// Real 2026-2027 board from https://ecti-thailand.org/committee/. Two fixes vs
+// the old site: EN name of the Bio-Medical chair (old site pasted another
+// person's name) and "Receptionist" → "Industry Relations" for อุตสาหกรรมสัมพันธ์.
+const BOARD_TERM = '2026-2027';
+const BOARD_IMAGE_BASE = 'https://ecti-thailand.org/wp-content/uploads/2026/04/';
+
+// Photos live on the old WP site; fetch once and upload into the media library.
+// A failed download must not block seeding — the member is created without a
+// photo and an editor can attach one in the admin later.
+async function uploadRemoteImage(strapi: Core.Strapi, url: string, name: string) {
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const buf = Buffer.from(await res.arrayBuffer());
+    const tmp = path.join(os.tmpdir(), `ecti-seed-${name}`);
+    await fs.writeFile(tmp, buf);
+    try {
+      const [file] = await strapi.plugin('upload').service('upload').upload({
+        data: { fileInfo: { name } },
+        files: { filepath: tmp, originalFilename: name, mimetype: 'image/jpeg', size: buf.length },
+      });
+      return file?.id ?? null;
+    } finally {
+      await fs.unlink(tmp).catch(() => {});
+    }
+  } catch (err) {
+    strapi.log.warn(`[seed] Board photo skipped (${name}): ${err?.stack || err}`);
+    return null;
+  }
+}
+
 async function seedBoardMembers(strapi: Core.Strapi) {
-  if (await countDocuments(strapi, 'api::board-member.board-member') > 0) return;
+  const uid = 'api::board-member.board-member';
+
+  // Mock members from before the term field existed have term = null — clear
+  // them out (documents().delete leaves rows with no draft version, so use db.query).
+  await strapi.db.query(uid).deleteMany({ where: { term: { $null: true } } });
 
   const members = [
-    { th: { name: 'ศ.ดร. สมชาย วิทยากร', role: 'นายกสมาคม', institution: 'จุฬาลงกรณ์มหาวิทยาลัย' }, en: { name: 'Prof. Dr. Somchai Wittayakorn', role: 'President', institution: 'Chulalongkorn University' }, committee: 'exec' },
-    { th: { name: 'รศ.ดร. สุนีย์ รัตนวงศ์', role: 'อุปนายกฝ่ายวิชาการ', institution: 'มหาวิทยาลัยเกษตรศาสตร์' }, en: { name: 'Assoc. Prof. Dr. Sunee Rattanawong', role: 'Vice President (Academic)', institution: 'Kasetsart University' }, committee: 'exec' },
-    { th: { name: 'ผศ.ดร. ประวิทย์ ชัยสกุล', role: 'เลขาธิการ', institution: 'มหาวิทยาลัยมหิดล' }, en: { name: 'Asst. Prof. Dr. Prawit Chaisakul', role: 'Secretary General', institution: 'Mahidol University' }, committee: 'exec' },
-    { th: { name: 'รศ.ดร. อนุชา ทองเจริญ', role: 'เหรัญญิก', institution: 'มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี' }, en: { name: 'Assoc. Prof. Dr. Anucha Thongcharoen', role: 'Treasurer', institution: 'KMUTT' }, committee: 'exec' },
-    { th: { name: 'ศ.ดร. วีระ สุขประเสริฐ', role: 'ประธานอนุกรรมการวิชาการ', institution: 'มหาวิทยาลัยขอนแก่น' }, en: { name: 'Prof. Dr. Veera Sukprasert', role: 'Chair, Academic Committee', institution: 'Khon Kaen University' }, committee: 'academic' },
-    { th: { name: 'รศ.ดร. ชาญณรงค์ พรรุ่งโรจน์', role: 'กรรมการวิชาการ', institution: 'มหาวิทยาลัยเชียงใหม่' }, en: { name: 'Assoc. Prof. Dr. Channarong Pornrungrojn', role: 'Academic Committee Member', institution: 'Chiang Mai University' }, committee: 'academic' },
-    { th: { name: 'ผศ.ดร. ภาวิณี ศรีสุข', role: 'กรรมการวิชาการ', institution: 'มหาวิทยาลัยสงขลานครินทร์' }, en: { name: 'Asst. Prof. Dr. Pawinee Srisuk', role: 'Academic Committee Member', institution: 'Prince of Songkla University' }, committee: 'academic' },
-    { th: { name: 'ศ.ดร. ธีระ อภิวัฒน์กุล', role: 'บรรณาธิการบริหาร ECTI-EEC', institution: 'สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง' }, en: { name: 'Prof. Dr. Theera Apivatanakul', role: 'Editor-in-Chief, ECTI-EEC', institution: 'KMITL' }, committee: 'publications' },
-    { th: { name: 'รศ.ดร. นลินรัตน์ กิตติวงศ์', role: 'บรรณาธิการบริหาร ECTI-CIT', institution: 'มหาวิทยาลัยธรรมศาสตร์' }, en: { name: 'Assoc. Prof. Dr. Nalinrat Kittiwong', role: 'Editor-in-Chief, ECTI-CIT', institution: 'Thammasat University' }, committee: 'publications' },
+    { th: { name: 'รศ. ดร.อนันต์ ผลเพิ่ม', role: 'นายกสมาคม', institution: 'มหาวิทยาลัยเกษตรศาสตร์' }, en: { name: 'Assoc. Prof. Dr. Anan Phonphoem', role: 'ECTI President', institution: 'Kasetsart University' }, image: 'Anan-2.jpg' },
+    { th: { name: 'ศ. ดร.พรชัย ทรัพย์นิธิ', role: 'อุปนายก', institution: 'สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง' }, en: { name: 'Prof. Dr. Pornchai Supnithi', role: 'Vice President', institution: "King Mongkut's Institute of Technology Ladkrabang" }, image: 'Pornchai.jpg' },
+    { th: { name: 'ผศ. ดร.กิตติพล โหราพงศ์', role: 'นายทะเบียน', institution: 'มหาวิทยาลัยเกษตรศาสตร์' }, en: { name: 'Asst. Prof. Dr. Kittipol Horapong', role: 'Registrar', institution: 'Kasetsart University' }, image: 'Kittipong-2.jpg' },
+    { th: { name: 'ดร.นฤดม นวลขาว', role: 'อุตสาหกรรมสัมพันธ์', institution: 'สถาบันมาตรวิทยาแห่งชาติ' }, en: { name: 'Dr. Narudom Noulkhow', role: 'Industry Relations', institution: 'National Institute of Metrology (Thailand)' }, image: 'Narudom-1.jpg' },
+    { th: { name: 'รศ. ดร.กฤษณ์ อ่างแก้ว', role: 'เลขาธิการ', institution: 'มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ' }, en: { name: 'Assoc. Prof. Dr. Krit Angkeaw', role: 'Secretary', institution: "King Mongkut's University of Technology North Bangkok" }, image: 'Krit-4.jpg' },
+    { th: { name: 'รศ. ดร.นนชณัต ฉัตรภูติ', role: 'เหรัญญิก', institution: 'มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ' }, en: { name: 'Assoc. Prof. Dr. Nonchanutt Chudpooti', role: 'Treasurer', institution: "King Mongkut's University of Technology North Bangkok" }, image: 'Nonchanutt.jpg' },
+    { th: { name: 'ผศ. ดร.ประภาพร รัตนธำรง', role: 'ประชาสัมพันธ์', institution: 'มหาวิทยาลัยธรรมศาสตร์' }, en: { name: 'Asst. Prof. Dr. Prapaporn Rattanatamrong', role: 'Public Relations', institution: 'Thammasat University' }, image: 'Prapaporn.jpg' },
+    { th: { name: 'ผศ. ดร.สกุล คำนวนชัย', role: 'กรรมการกลาง', institution: 'มหาวิทยาลัยราชภัฏเทพสตรี' }, en: { name: 'Asst. Prof. Dr. Skul Kamnuanchai', role: 'Board Member', institution: 'Thepsatri Rajabhat University' }, image: 'Skul-1.jpg' },
+    { th: { name: 'ผศ. ดร.วนิดา พฤทธิวิทยา', role: 'กรรมการกลาง', institution: 'มหาวิทยาลัยธรรมศาสตร์' }, en: { name: 'Asst. Prof. Dr. Wanida Putthividhya', role: 'Board Member', institution: 'Thammasat University' }, image: 'Wanida.jpg' },
+    { th: { name: 'รศ. ดร.สาคร เมฆรักษาวนิช', role: 'กรรมการสายวิชาการเทคโนโลยีสารสนเทศ', institution: 'มหาวิทยาลัยพะเยา' }, en: { name: 'Assoc. Prof. Dr. Sakorn Mekruksavanich', role: 'Technical Chair (Information Technologies)', institution: 'University of Phayao' }, image: 'Sakorn-2.jpg' },
+    { th: { name: 'รศ. ดร.เกริก ภิรมย์โสภา', role: 'กรรมการสายวิชาการคอมพิวเตอร์และปัญญาประดิษฐ์', institution: 'จุฬาลงกรณ์มหาวิทยาลัย' }, en: { name: 'Assoc. Prof. Dr. Krerk Piromsopa', role: 'Technical Chair (Computer and Artificial Intelligence)', institution: 'Chulalongkorn University' }, image: 'Krerk-1.jpg' },
+    { th: { name: 'ศ. ดร.นิพนธ์ ธีรอำพน', role: 'กรรมการสายวิชาการวิศวกรรมชีวการแพทย์', institution: 'มหาวิทยาลัยเชียงใหม่' }, en: { name: 'Prof. Dr. Nipon Theera-Umpon', role: 'Technical Chair (Bio-Medical Engineering)', institution: 'Chiang Mai University' }, image: 'Nipon.jpg' },
+    { th: { name: 'ศ. ดร.ฐิติพงษ์ เลิศวิริยะประภา', role: 'กรรมการสายวิชาการแม่เหล็กไฟฟ้า', institution: 'มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ' }, en: { name: 'Prof. Dr. Titipong Lertwiriyaprapa', role: 'Technical Chair (Electromagnetics)', institution: "King Mongkut's University of Technology North Bangkok" }, image: 'Titipong-1.jpg' },
+    { th: { name: 'ผศ. ดร.ปัณณวิชญ์ ภัทร์สรณ์สิริ', role: 'กรรมการสายวิชาการอิเล็กทรอนิกส์', institution: 'สถาบันเทคโนโลยีปทุมวัน' }, en: { name: 'Asst. Prof. Dr. Punnavich Phatsornsiri', role: 'Technical Chair (Electronics)', institution: 'Pathumwan Institute of Technology' }, image: 'Punnavich-3.jpg' },
+    { th: { name: 'ผศ. ดร.สาธิต มังคลาจารย์', role: 'กรรมการสายวิชาการสายระบบควบคุมและหุ่นยนต์', institution: 'มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ' }, en: { name: 'Asst. Prof. Dr. Satit Mangkalajan', role: 'Technical Chair (System Control and Robotics)', institution: "King Mongkut's University of Technology North Bangkok" }, image: 'Satit-1.jpg' },
+    { th: { name: 'รศ. ดร.อุเทน คำน่าน', role: 'กรรมการสายวิชาการวิศวกรรมไฟฟ้า', institution: 'มหาวิทยาลัยเทคโนโลยีราชมงคลล้านนา' }, en: { name: 'Assoc. Prof. Dr. Uthen Khamnan', role: 'Technical Chair (Electrical Engineering)', institution: 'Rajamangala University of Technology Lanna' }, image: 'Uthen.jpg' },
+    { th: { name: 'ศ. ดร.ชานนท์ วริสาร', role: 'กรรมการสายวิชาการโทรคมนาคม', institution: 'สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง' }, en: { name: 'Prof. Dr. Chanon Warisarn', role: 'Technical Chair (Telecommunications)', institution: "King Mongkut's Institute of Technology Ladkrabang" }, image: 'Chanon-4.jpg' },
+    { th: { name: 'ผศ.ดร.พันศักดิ์ เทียนวิบูลย์', role: 'กรรมการสายวิชาการประมวลผลสัญญาณ', institution: 'มหาวิทยาลัยเกษตรศาสตร์' }, en: { name: 'Asst. Prof. Dr. Phunsak Thiennviboon', role: 'Technical Chair (Signal Processing)', institution: 'Kasetsart University' }, image: 'Phunsak-1.jpg' },
   ];
 
   for (const m of members) {
-    const doc = await strapi.documents('api::board-member.board-member').create({
-      data: { name: m.th.name, role: m.th.role, institution: m.th.institution, committee: m.committee as any },
+    const found = await strapi.db
+      .query(uid)
+      // oldest row first = the th draft the photo morph lands on (see below)
+      .findOne({ where: { name: m.th.name, term: BOARD_TERM }, populate: ['image'], orderBy: { id: 'asc' } });
+    if (found?.image) continue; // fully seeded — don't clobber admin edits or uploaded photos
+
+    const imageId = await uploadRemoteImage(strapi, BOARD_IMAGE_BASE + m.image, m.image);
+
+    if (found) {
+      // Member exists but the photo download failed on an earlier run — attach it now.
+      if (imageId) {
+        for (const locale of ['th', 'en']) {
+          await strapi.documents(uid).update({
+            documentId: found.documentId,
+            data: { image: imageId },
+            locale,
+            status: 'published',
+          });
+        }
+      }
+      continue;
+    }
+
+    const doc = await strapi.documents(uid).create({
+      data: {
+        name: m.th.name,
+        role: m.th.role,
+        institution: m.th.institution,
+        term: BOARD_TERM,
+        ...(imageId ? { image: imageId } : {}),
+      },
       locale: 'th',
       status: 'published',
     });
-    await strapi.documents('api::board-member.board-member').update({
+    await strapi.documents(uid).update({
       documentId: doc.documentId,
-      data: { name: m.en.name, role: m.en.role, institution: m.en.institution },
+      data: {
+        name: m.en.name,
+        role: m.en.role,
+        institution: m.en.institution,
+        ...(imageId ? { image: imageId } : {}),
+      },
       locale: 'en',
       status: 'published',
     });
   }
-  strapi.log.info('[seed] Board members created');
+
+  // Strapi 5's publish clone drops media morphs created through the document
+  // service, leaving the photo attached to the th draft row only. Copy each
+  // photo morph to sibling rows (same document, other locale/status) that have
+  // no photo yet — fill-only, never overrides an editor's change.
+  await strapi.db.connection.raw(`
+    INSERT INTO files_related_mph (file_id, related_id, related_type, field, "order")
+    SELECT m.file_id, r2.id, m.related_type, m.field, m."order"
+    FROM files_related_mph m
+    JOIN board_members r1 ON r1.id = m.related_id
+    JOIN board_members r2 ON r2.document_id = r1.document_id AND r2.id <> r1.id
+    WHERE m.related_type = 'api::board-member.board-member'
+      AND m.field = 'image'
+      AND NOT EXISTS (
+        SELECT 1 FROM files_related_mph m2
+        WHERE m2.related_id = r2.id
+          AND m2.related_type = m.related_type
+          AND m2.field = m.field
+      )
+  `);
+
+  strapi.log.info(`[seed] Board members (${BOARD_TERM}) seeded`);
 }
 
 // ─── Milestones ──────────────────────────────────────────────────────────────

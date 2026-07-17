@@ -731,14 +731,6 @@ export interface ApiBoardMemberBoardMember extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
-    committee: Schema.Attribute.Enumeration<
-      ['exec', 'academic', 'publications']
-    > &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: false;
-        };
-      }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -771,6 +763,13 @@ export interface ApiBoardMemberBoardMember extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
+        };
+      }>;
+    term: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
         };
       }>;
     updatedAt: Schema.Attribute.DateTime;
