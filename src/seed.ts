@@ -166,8 +166,13 @@ const BOARD_IMAGE_BASE = 'https://ecti-thailand.org/wp-content/uploads/2026/04/'
 // photo and an editor can attach one in the admin later.
 async function uploadRemoteImage(strapi: Core.Strapi, url: string, name: string) {
   try {
-    const res = await fetch(url);
+    // Timeout so a hung old-site connection can't stall bootstrap (and fail
+    // the whole deploy on Strapi Cloud); content-type guard so a WP error page
+    // served with HTTP 200 doesn't end up in the media library as a "photo".
+    const res = await fetch(url, { signal: AbortSignal.timeout(10_000) });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const contentType = res.headers.get('content-type') ?? '';
+    if (!contentType.startsWith('image/')) throw new Error(`not an image: ${contentType}`);
     const buf = Buffer.from(await res.arrayBuffer());
     const tmp = path.join(os.tmpdir(), `ecti-seed-${name}`);
     await fs.writeFile(tmp, buf);
@@ -189,9 +194,24 @@ async function uploadRemoteImage(strapi: Core.Strapi, url: string, name: string)
 async function seedBoardMembers(strapi: Core.Strapi) {
   const uid = 'api::board-member.board-member';
 
-  // Mock members from before the term field existed have term = null — clear
-  // them out (documents().delete leaves rows with no draft version, so use db.query).
-  await strapi.db.query(uid).deleteMany({ where: { term: { $null: true } } });
+  // Clear out the mock members from the pre-term seed. Match the known mock
+  // names — not just `term: null` — so a member an admin typed in before this
+  // field existed survives. Both locales listed: th and en are separate rows.
+  // (documents().delete leaves rows with no draft version, so use db.query.)
+  const MOCK_NAMES = [
+    'ศ.ดร. สมชาย วิทยากร', 'Prof. Dr. Somchai Wittayakorn',
+    'รศ.ดร. สุนีย์ รัตนวงศ์', 'Assoc. Prof. Dr. Sunee Rattanawong',
+    'ผศ.ดร. ประวิทย์ ชัยสกุล', 'Asst. Prof. Dr. Prawit Chaisakul',
+    'รศ.ดร. อนุชา ทองเจริญ', 'Assoc. Prof. Dr. Anucha Thongcharoen',
+    'ศ.ดร. วีระ สุขประเสริฐ', 'Prof. Dr. Veera Sukprasert',
+    'รศ.ดร. ชาญณรงค์ พรรุ่งโรจน์', 'Assoc. Prof. Dr. Channarong Pornrungrojn',
+    'ผศ.ดร. ภาวิณี ศรีสุข', 'Asst. Prof. Dr. Pawinee Srisuk',
+    'ศ.ดร. ธีระ อภิวัฒน์กุล', 'Prof. Dr. Theera Apivatanakul',
+    'รศ.ดร. นลินรัตน์ กิตติวงศ์', 'Assoc. Prof. Dr. Nalinrat Kittiwong',
+  ];
+  await strapi.db.query(uid).deleteMany({
+    where: { name: { $in: MOCK_NAMES }, term: { $null: true } },
+  });
 
   const members = [
     { th: { name: 'รศ. ดร.อนันต์ ผลเพิ่ม', role: 'นายกสมาคม', institution: 'มหาวิทยาลัยเกษตรศาสตร์' }, en: { name: 'Assoc. Prof. Dr. Anan Phonphoem', role: 'ECTI President', institution: 'Kasetsart University' }, image: 'Anan-2.jpg' },
