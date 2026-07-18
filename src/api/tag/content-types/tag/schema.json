@@ -8,7 +8,7 @@
     "description": "Tags shown on the News page. Pick by format, not topic — everything ECTI posts is academic: announcements = general notices; cfp = open call for submissions with a deadline; academic = conference/lecture/seminar you attend; training = hands-on course or workshop you take part in; article = editorial piece."
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {
     "i18n": {

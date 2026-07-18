@@ -8,7 +8,7 @@
     "description": "Short summary of the ECTI Credits system shown on the Membership page."
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {
     "i18n": {

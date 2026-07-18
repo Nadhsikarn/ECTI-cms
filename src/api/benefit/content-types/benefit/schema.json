@@ -7,7 +7,7 @@
     "displayName": "Membership — Benefit"
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {
     "i18n": {

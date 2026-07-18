@@ -8,7 +8,7 @@
     "description": "Social media profile URLs shown as icons in the site footer. Leave a field empty to hide that icon."
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {
     "i18n": {
