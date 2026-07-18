@@ -438,7 +438,7 @@ export interface ApiActivityActivity extends Struct.CollectionTypeSchema {
     singularName: 'activity';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -545,7 +545,7 @@ export interface ApiArchiveItemArchiveItem extends Struct.CollectionTypeSchema {
     singularName: 'archive-item';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -623,7 +623,7 @@ export interface ApiAssociationDocumentAssociationDocument
     singularName: 'association-document';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -685,7 +685,7 @@ export interface ApiBenefitBenefit extends Struct.CollectionTypeSchema {
     singularName: 'benefit';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -723,7 +723,7 @@ export interface ApiBoardMemberBoardMember extends Struct.CollectionTypeSchema {
     singularName: 'board-member';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -786,7 +786,7 @@ export interface ApiConferenceConference extends Struct.CollectionTypeSchema {
     singularName: 'conference';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -843,7 +843,7 @@ export interface ApiContactContact extends Struct.SingleTypeSchema {
     singularName: 'contact';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -898,7 +898,7 @@ export interface ApiHowtoJoinHowtoJoin extends Struct.CollectionTypeSchema {
     singularName: 'howto-join';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -955,7 +955,7 @@ export interface ApiJournalJournal extends Struct.CollectionTypeSchema {
     singularName: 'journal';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -1017,7 +1017,7 @@ export interface ApiMemberTypeMemberType extends Struct.CollectionTypeSchema {
     singularName: 'member-type';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -1087,7 +1087,7 @@ export interface ApiMembershipApplyMembershipApply
     singularName: 'membership-apply';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -1126,7 +1126,7 @@ export interface ApiMembershipCreditMembershipCredit
     singularName: 'membership-credit';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -1171,7 +1171,7 @@ export interface ApiMembershipDocumentMembershipDocument
     singularName: 'membership-document';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -1235,7 +1235,7 @@ export interface ApiMembershipPaymentMembershipPayment
     singularName: 'membership-payment';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -1314,7 +1314,7 @@ export interface ApiMilestoneMilestone extends Struct.CollectionTypeSchema {
     singularName: 'milestone';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -1365,7 +1365,7 @@ export interface ApiMissionVisionMissionVision extends Struct.SingleTypeSchema {
     singularName: 'mission-vision';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -1482,7 +1482,7 @@ export interface ApiObjectiveObjective extends Struct.SingleTypeSchema {
     singularName: 'objective';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -1519,7 +1519,7 @@ export interface ApiQuestionQuestion extends Struct.CollectionTypeSchema {
     singularName: 'question';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -1563,7 +1563,7 @@ export interface ApiResourceResource extends Struct.CollectionTypeSchema {
     singularName: 'resource';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -1626,7 +1626,7 @@ export interface ApiSocialLinkSocialLink extends Struct.SingleTypeSchema {
     singularName: 'social-link';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -1714,7 +1714,7 @@ export interface ApiTagTag extends Struct.CollectionTypeSchema {
     singularName: 'tag';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {

@@ -8,7 +8,7 @@
     "description": "External membership application form link (e.g. JotForm) used by the 'Apply for Membership' button on the Membership page."
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {
     "i18n": {

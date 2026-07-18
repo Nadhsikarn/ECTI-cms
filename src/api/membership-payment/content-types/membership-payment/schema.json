@@ -8,7 +8,7 @@
     "description": "Bank transfer details and application channels shown on the Membership page."
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {
     "i18n": {

@@ -7,7 +7,7 @@
     "displayName": "About — Milestone"
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {
     "i18n": {

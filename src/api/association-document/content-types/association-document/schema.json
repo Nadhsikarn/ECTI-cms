@@ -8,7 +8,7 @@
     "description": "Association documents (bylaws, reimbursement / loan forms) shown on Resources → เอกสารของสมาคม. Upload the PDF in the file field (or set a link)."
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {
     "i18n": {

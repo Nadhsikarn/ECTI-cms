@@ -8,7 +8,7 @@
     "description": "E-magazines and ECTI industry-journal issues shown on the Resources → คลังข้อมูล (Archive) page. Upload the PDF in the file field (or set a link)."
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {
     "i18n": {
