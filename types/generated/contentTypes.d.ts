@@ -1410,6 +1410,12 @@ export interface ApiNewsPostNewsPost extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
+    attachments: Schema.Attribute.Component<'ui.attachment', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
     author: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {

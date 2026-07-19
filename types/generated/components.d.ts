@@ -32,6 +32,19 @@ export interface DeadlineDeadlineItem extends Struct.ComponentSchema {
   };
 }
 
+export interface UiAttachment extends Struct.ComponentSchema {
+  collectionName: 'components_ui_attachments';
+  info: {
+    description: 'A downloadable document (title + uploaded file, or an external link fallback).';
+    displayName: 'attachment';
+  };
+  attributes: {
+    file: Schema.Attribute.Media<'files' | 'images'>;
+    link: Schema.Attribute.String;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface UiButtonItem extends Struct.ComponentSchema {
   collectionName: 'components_ui_button_items';
   info: {
@@ -49,6 +62,7 @@ declare module '@strapi/strapi' {
       'about.about-card': AboutAboutCard;
       'about.objective-item': AboutObjectiveItem;
       'deadline.deadline-item': DeadlineDeadlineItem;
+      'ui.attachment': UiAttachment;
       'ui.button-item': UiButtonItem;
     }
   }

@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_ui_attachments",
+  "info": {
+    "displayName": "attachment",
+    "description": "A downloadable document (title + uploaded file, or an external link fallback)."
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "file": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "files",
+        "images"
+      ]
+    },
+    "link": {
+      "type": "string",
+      "regex": "^https?://.+"
+    }
+  },
+  "config": {}
+}
