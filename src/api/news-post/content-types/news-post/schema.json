@@ -87,6 +87,16 @@
           "localized": false
         }
       }
+    },
+    "attachments": {
+      "type": "component",
+      "repeatable": true,
+      "component": "ui.attachment",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     }
   }
 }
