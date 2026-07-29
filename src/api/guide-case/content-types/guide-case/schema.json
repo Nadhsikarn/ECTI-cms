@@ -1,0 +1,66 @@
+{
+  "kind": "collectionType",
+  "collectionName": "guide_cases",
+  "info": {
+    "singularName": "guide-case",
+    "pluralName": "guide-cases",
+    "displayName": "Resources — Document Guide Case",
+    "description": "One card on Resources → เอกสารของสมาคม: a reimbursement case (มีใบเสร็จ / ใบเสร็จไม่สมบูรณ์ / ไม่มีใบเสร็จ) or the loan case, with the list of documents to attach."
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "group": {
+      "type": "enumeration",
+      "enum": ["reimbursement", "loan"],
+      "default": "reimbursement",
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
+    "order": {
+      "type": "integer",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
+    "title": {
+      "type": "string",
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "subtitle": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "steps": {
+      "type": "component",
+      "repeatable": true,
+      "component": "guide.guide-step",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    }
+  }
+}

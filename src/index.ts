@@ -72,6 +72,8 @@ async function enablePublicPermissions(strapi: Core.Strapi) {
     'api::membership-document.membership-document',
     'api::archive-item.archive-item',
     'api::association-document.association-document',
+    'api::guide-case.guide-case',
+    'api::document-guide.document-guide',
   ];
 
   const actions = ['find', 'findOne'];
