@@ -32,6 +32,19 @@ export interface DeadlineDeadlineItem extends Struct.ComponentSchema {
   };
 }
 
+export interface GuideGuideStep extends Struct.ComponentSchema {
+  collectionName: 'components_guide_guide_steps';
+  info: {
+    description: 'One item a member must attach for a reimbursement / loan case. Set documentKey to the `key` of an Association Document (e.g. reimbursement-form) to turn the step into a download link.';
+    displayName: 'guide step';
+  };
+  attributes: {
+    documentKey: Schema.Attribute.String;
+    note: Schema.Attribute.String;
+    text: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface UiAttachment extends Struct.ComponentSchema {
   collectionName: 'components_ui_attachments';
   info: {
@@ -62,6 +75,7 @@ declare module '@strapi/strapi' {
       'about.about-card': AboutAboutCard;
       'about.objective-item': AboutObjectiveItem;
       'deadline.deadline-item': DeadlineDeadlineItem;
+      'guide.guide-step': GuideGuideStep;
       'ui.attachment': UiAttachment;
       'ui.button-item': UiButtonItem;
     }

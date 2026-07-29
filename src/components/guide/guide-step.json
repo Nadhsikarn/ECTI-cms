@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_guide_guide_steps",
+  "info": {
+    "displayName": "guide step",
+    "description": "One item a member must attach for a reimbursement / loan case. Set documentKey to the `key` of an Association Document (e.g. reimbursement-form) to turn the step into a download link."
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string",
+      "required": true
+    },
+    "documentKey": {
+      "type": "string"
+    },
+    "note": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}
