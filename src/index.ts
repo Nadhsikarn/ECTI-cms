@@ -1,5 +1,6 @@
 import type { Core } from '@strapi/strapi';
 import { seed } from './seed';
+import { queueNewsPostBroadcast, startNewsletterWorker } from './newsletter';
 
 const MUTATING_ACTIONS = new Set([
   'create',
@@ -29,7 +30,7 @@ async function sendWebhook(
   };
 
   try {
-    await fetch(url, {
+    const res = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -37,6 +38,16 @@ async function sendWebhook(
       },
       body: JSON.stringify(payload),
     });
+
+    // fetch only throws when the connection fails — the front rejecting us comes
+    // back as an ordinary response, so without this a wrong secret is invisible.
+    // The status says which end to look at: 401 = secret, 404 = path, 5xx = front.
+    if (!res.ok) {
+      strapi.log.warn(
+        `[webhook] ${url} returned ${res.status} for event "${event}" — not processed.` +
+          (res.status === 401 ? ' WEBHOOK_SECRET does not match the front.' : '')
+      );
+    }
   } catch (err) {
     strapi.log.warn(`[webhook] Failed to send event "${event}" to ${url}: ${err}`);
   }
@@ -97,6 +108,20 @@ async function enablePublicPermissions(strapi: Core.Strapi) {
 
 export default {
   register({ strapi }: { strapi: Core.Strapi }) {
+    // Say it once at boot. sendWebhook() bails on a missing URL without a word,
+    // so a forgotten env var looks exactly like a working setup — the front just
+    // never revalidates. Anything built on this webhook (newsletter broadcast)
+    // would go quiet the same way.
+    if (!process.env.WEBHOOK_URL) {
+      strapi.log.warn(
+        '[webhook] WEBHOOK_URL is not set — content changes will NOT notify the front, so its cache is never revalidated.'
+      );
+    } else if (!process.env.WEBHOOK_SECRET) {
+      strapi.log.warn(
+        '[webhook] WEBHOOK_SECRET is not set — the front rejects unsigned webhooks with 401, so revalidation will fail.'
+      );
+    }
+
     strapi.documents.use(async (ctx, next) => {
       const result = await next();
 
@@ -107,6 +132,27 @@ export default {
             : undefined;
 
         sendWebhook(strapi, ctx.action, ctx.uid, documentId).catch(() => {});
+      }
+
+      return result;
+    });
+
+    // Broadcast a news post to the newsletter list once it goes live. The
+    // middleware only records the id — the publish transaction is still open
+    // here, so any query would be bound to it and fail once it commits. The
+    // worker started below does the actual work a moment later.
+    startNewsletterWorker(strapi);
+
+    strapi.documents.use(async (ctx, next) => {
+      const result = await next();
+
+      if (ctx.uid === 'api::news-post.news-post' && ctx.action === 'publish') {
+        const documentId =
+          typeof ctx.params === 'object' && ctx.params !== null && 'documentId' in ctx.params
+            ? (ctx.params as { documentId?: string }).documentId
+            : undefined;
+
+        if (documentId) queueNewsPostBroadcast(documentId);
       }
 
       return result;
