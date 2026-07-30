@@ -1587,6 +1587,13 @@ export interface ApiNewsPostNewsPost extends Struct.CollectionTypeSchema {
       'oneToMany',
       'api::news-post.news-post'
     >;
+    newsletter_sent: Schema.Attribute.Boolean &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<false>;
     publishedAt: Schema.Attribute.DateTime;
     published_date: Schema.Attribute.Date &
       Schema.Attribute.SetPluginOptions<{

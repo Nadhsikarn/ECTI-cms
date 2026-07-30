@@ -121,6 +121,15 @@
           "localized": false
         }
       }
+    },
+    "newsletter_sent": {
+      "type": "boolean",
+      "default": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     }
   }
 }
