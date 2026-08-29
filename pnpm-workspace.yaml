@@ -3,3 +3,12 @@ onlyBuiltDependencies:
   - core-js-pure
   - esbuild
   - sharp
+
+# Transitive packages pinned past a published advisory, where the version Strapi
+# resolves to is still vulnerable. Drop an entry once Strapi's own dependency
+# range has moved past it on its own.
+overrides:
+  # `concurrently`, Strapi's dev-time task runner, pulls a shell-quote that
+  # doesn't escape newlines (GHSA critical). Not reachable from the served API,
+  # but there is no reason to keep it.
+  shell-quote: '>=1.8.4'
