@@ -11,6 +11,8 @@
     "develop": "strapi develop",
     "news:scrape": "node scripts/scrape-legacy-news.mjs",
     "news:import": "node scripts/import-legacy-news.mjs",
+    "conf:scrape": "node scripts/scrape-legacy-conferences.mjs",
+    "conf:import": "node scripts/import-legacy-conferences.mjs",
     "start": "strapi start",
     "strapi": "strapi",
     "upgrade": "npx @strapi/upgrade latest",

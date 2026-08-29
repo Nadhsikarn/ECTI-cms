@@ -1,0 +1,925 @@
+[
+  {
+    "slug": "ica-symp-2025",
+    "name": "ICA-SYMP 2025",
+    "title": "",
+    "description": [],
+    "year": 2025,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2025-01-15",
+    "endDate": null,
+    "registerUrl": "https://ica-symp-2025.ecti-thailand.org/",
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "ecti-card-2024",
+    "name": "ECTI-CARD 2024",
+    "title": "",
+    "description": [],
+    "year": 2024,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2024-05-08",
+    "endDate": null,
+    "registerUrl": "https://ecticard2024.srru.ac.th/index.html",
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "ica-symp-2023",
+    "name": "ICA-SYMP 2023",
+    "title": "The 2023 3rd International Symposium on Instrumentation, Control, Artificial Intelligence, and Robotics",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "The 2023 3rd International Symposium on Instrumentation, Control, Artificial Intelligence, and Robotics"
+          }
+        ]
+      }
+    ],
+    "year": 2023,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2023-01-18",
+    "endDate": "2023-01-20",
+    "registerUrl": "https://ica-symp-2023.ecti-thailand.org/",
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "ecti-card-2023",
+    "name": "ECTI-CARD 2023",
+    "title": "The 15th Conference on Application Research and Development",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "The 15th Conference on Application Research and Development"
+          }
+        ]
+      }
+    ],
+    "year": 2023,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2023-04-26",
+    "endDate": "2023-04-28",
+    "registerUrl": "https://ecticard2023.ecticard.org/",
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "ecti-con-2022",
+    "name": "ECTI-CON 2022",
+    "title": "The 19th International Conference on Electrical Engineering/Electronics, Computer, Telecommunication and Information Technology",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "The 19th International Conference on Electrical Engineering/Electronics, Computer, Telecommunication and Information Technology"
+          }
+        ]
+      }
+    ],
+    "year": 2022,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2022-05-24",
+    "endDate": "2022-05-27",
+    "registerUrl": "http://www.ecti-con2022.org/",
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "iscit-2018",
+    "name": "ISCIT 2018",
+    "title": "The 18th International Symposium on Communications and Information Technologies",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "The 18th International Symposium on Communications and Information Technologies"
+          }
+        ]
+      }
+    ],
+    "year": 2018,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2018-09-26",
+    "endDate": "2018-09-28",
+    "registerUrl": "http://iscit2018.org/",
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "ecti-con-2018",
+    "name": "ECTI-CON 2018",
+    "title": "The 15th International Conference on Electrical Engineering/Electronics, Computer, Telecommunication and Information Technology",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "The 15th International Conference on Electrical Engineering/Electronics, Computer, Telecommunication and Information Technology"
+          }
+        ]
+      }
+    ],
+    "year": 2018,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2018-07-18",
+    "endDate": "2018-07-21",
+    "registerUrl": "http://www.ecti-con.org/con-2018/",
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "itc-cscc-2018",
+    "name": "ITC-CSCC 2018",
+    "title": "The 33rd International Technical Conference on Circuits/Systems, Computers and Communications",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "The 33rd International Technical Conference on Circuits/Systems, Computers and Communications"
+          }
+        ]
+      }
+    ],
+    "year": 2018,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2018-07-04",
+    "endDate": "2018-07-07",
+    "registerUrl": "http://www.itc-cscc2018.org/",
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "ecti-card-2018",
+    "name": "ECTI-CARD 2018",
+    "title": "The 10th Conference on Application Research and Development",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "The 10th Conference on Application Research and Development"
+          }
+        ]
+      }
+    ],
+    "year": 2018,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2018-06-26",
+    "endDate": "2018-06-29",
+    "registerUrl": "http://ecticard2018.ecticard.org/content/",
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "icdamt-2018",
+    "name": "ICDAMT 2018",
+    "title": "The 3rd International Conference on Digital Arts, Media and Technology",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "The 3rd International Conference on Digital Arts, Media and Technology"
+          }
+        ]
+      }
+    ],
+    "year": 2018,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2018-02-25",
+    "endDate": "2018-02-28",
+    "registerUrl": "http://ict.up.ac.th/icdamt/2018/",
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "ecti-card-2017",
+    "name": "ECTI-CARD 2017",
+    "title": "The 9th Conference on Application Research and Development (Proceeding Vol.1) 9th Conference on Application Research and Development (Proceeding Vol.2)",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "The 9th Conference on Application Research and Development (Proceeding Vol.1) 9th Conference on Application Research and Development (Proceeding Vol.2)"
+          }
+        ]
+      }
+    ],
+    "year": 2017,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2017-07-25",
+    "endDate": "2017-07-28",
+    "registerUrl": "http://www.ecti-card.org/card-2017/",
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "ecti-con-2017",
+    "name": "ECTI-CON 2017",
+    "title": "The 14th International Conference on Electrical Engineering/Electronics, Computer, Telecommunications and Information Technology",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "The 14th International Conference on Electrical Engineering/Electronics, Computer, Telecommunications and Information Technology"
+          }
+        ]
+      }
+    ],
+    "year": 2017,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2017-06-27",
+    "endDate": "2017-06-30",
+    "registerUrl": "http://www.ecti-con.org/con-2017/",
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "ecti-con-2016",
+    "name": "ECTI-CON 2016",
+    "title": "The 13th International Conference on Electrical Engineering/Electronics, Computer, Telecommunications and Information Technology",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "The 13th International Conference on Electrical Engineering/Electronics, Computer, Telecommunications and Information Technology"
+          }
+        ]
+      }
+    ],
+    "year": 2016,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2016-06-16",
+    "endDate": "2016-06-01",
+    "registerUrl": null,
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "ecti-card-2016",
+    "name": "ECTI-CARD 2016",
+    "title": "The 8th Conference on Application Research and Development (Download Proceeding)",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "The 8th Conference on Application Research and Development (Download Proceeding)"
+          }
+        ]
+      }
+    ],
+    "year": 2016,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2016-05-05",
+    "endDate": "2016-05-08",
+    "registerUrl": "http://ecticard2016.ecticard.org/content/",
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "ecti-card-2015",
+    "name": "ECTI-CARD 2015",
+    "title": "The 7th Conference on Application Research and Development (Download Proceeding)",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "The 7th Conference on Application Research and Development (Download Proceeding)"
+          }
+        ]
+      }
+    ],
+    "year": 2015,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2015-07-08",
+    "endDate": "2015-07-10",
+    "registerUrl": "http://ecticard2015.ecticard.org/content/",
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "ecti-con-2015",
+    "name": "ECTI-CON 2015",
+    "title": "The 12th International Conference on Electrical Engineering/Electronics, Computer, Telecommunications and Information Technology",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "The 12th International Conference on Electrical Engineering/Electronics, Computer, Telecommunications and Information Technology"
+          }
+        ]
+      }
+    ],
+    "year": 2015,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2015-06-24",
+    "endDate": "2015-06-27",
+    "registerUrl": "http://ecticon2015.ecticon.org/content/",
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "apsipa-asc-2014",
+    "name": "APSIPA-ASC 2014",
+    "title": "APSIPA Annual Summit and Conference 2014",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "APSIPA Annual Summit and Conference 2014"
+          }
+        ]
+      }
+    ],
+    "year": 2014,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2014-12-09",
+    "endDate": "2014-12-12",
+    "registerUrl": null,
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "apcc-2014",
+    "name": "APCC 2014",
+    "title": "The 20th Asia-Pacific Conference on Communications",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "The 20th Asia-Pacific Conference on Communications"
+          }
+        ]
+      }
+    ],
+    "year": 2014,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2014-10-01",
+    "endDate": "2014-10-03",
+    "registerUrl": "http://apcc2014.ecti-thailand.org/content/sample/",
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "itc-cscc-2014",
+    "name": "ITC-CSCC 2014",
+    "title": "The 29th International Technical Conference on Circuits/Systems, Computers and Communications",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "The 29th International Technical Conference on Circuits/Systems, Computers and Communications"
+          }
+        ]
+      }
+    ],
+    "year": 2014,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2014-07-01",
+    "endDate": "2014-07-04",
+    "registerUrl": null,
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "ecti-card-2014",
+    "name": "ECTI-CARD 2014",
+    "title": "The 6th Conference on Application Research and Development (Download Proceeding)",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "The 6th Conference on Application Research and Development (Download Proceeding)"
+          }
+        ]
+      }
+    ],
+    "year": 2014,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2014-05-21",
+    "endDate": "2014-05-23",
+    "registerUrl": "http://ecticard2014.ecticard.org/content/",
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "ecti-con-2014",
+    "name": "ECTI-CON 2014",
+    "title": "The 11th International Conference on Electrical Engineering/Electronics, Computer, Telecommunications and Information Technology",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "The 11th International Conference on Electrical Engineering/Electronics, Computer, Telecommunications and Information Technology"
+          }
+        ]
+      }
+    ],
+    "year": 2014,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2014-05-14",
+    "endDate": "2014-05-17",
+    "registerUrl": "http://ecticon2014.ecticon.org/content/",
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "iscit-2013",
+    "name": "ISCIT 2013",
+    "title": "International Symposium on Communications and Information Technologies 2013",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "International Symposium on Communications and Information Technologies 2013"
+          }
+        ]
+      }
+    ],
+    "year": 2013,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2013-09-04",
+    "endDate": "2013-09-06",
+    "registerUrl": "http://iscit2013.ecti-thailand.org/content/index.php",
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "apcap-2013",
+    "name": "APCAP 2013",
+    "title": "The 2nd Asia-Pacific Conference on Antennas and Propagation",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "The 2nd Asia-Pacific Conference on Antennas and Propagation"
+          }
+        ]
+      }
+    ],
+    "year": 2013,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2013-08-05",
+    "endDate": "2013-08-07",
+    "registerUrl": "http://apcap2013.ecti-thailand.org/",
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "ecti-con-2013",
+    "name": "ECTI-CON 2013",
+    "title": "The 10th International Conference on Electrical Engineering/Electronics, Computer, Telecommunications and Information Technology",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "The 10th International Conference on Electrical Engineering/Electronics, Computer, Telecommunications and Information Technology"
+          }
+        ]
+      }
+    ],
+    "year": 2013,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2013-05-15",
+    "endDate": "2013-05-17",
+    "registerUrl": "http://ecticon2013.ecticon.org/content/",
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "ecti-card-2013",
+    "name": "ECTI-CARD 2013",
+    "title": "The 5th Conference on Application Research and Development",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "The 5th Conference on Application Research and Development"
+          }
+        ]
+      }
+    ],
+    "year": 2013,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2013-05-08",
+    "endDate": "2013-05-10",
+    "registerUrl": "http://ecticard2013.ecticard.org/content/",
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "iscit-2012",
+    "name": "ISCIT 2012",
+    "title": "International Symposium on Communications and Information Technologies 2012",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "International Symposium on Communications and Information Technologies 2012"
+          }
+        ]
+      }
+    ],
+    "year": 2012,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2012-10-02",
+    "endDate": "2012-10-05",
+    "registerUrl": null,
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "ecti-con-2012",
+    "name": "ECTI-CON 2012",
+    "title": "The 9th International Conference on Electrical Engineering/Electronics, Computer, Telecommunications and Information Technology",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "The 9th International Conference on Electrical Engineering/Electronics, Computer, Telecommunications and Information Technology"
+          }
+        ]
+      }
+    ],
+    "year": 2012,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2012-05-16",
+    "endDate": "2012-05-18",
+    "registerUrl": "http://ecticon2012.ecticon.org/content/",
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "ecti-card-2012",
+    "name": "ECTI-CARD 2012",
+    "title": "The 4th Conference on Application Research and Development (Download Proceeding)",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "The 4th Conference on Application Research and Development (Download Proceeding)"
+          }
+        ]
+      }
+    ],
+    "year": 2012,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2012-05-07",
+    "endDate": "2012-05-09",
+    "registerUrl": "http://ecticard2012.ecticard.org/content/",
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "ecti-con-2011",
+    "name": "ECTI-CON 2011",
+    "title": "The 8th International Conference on Electrical Engineering/Electronics, Computer, Telecommunications and Information Technology",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "The 8th International Conference on Electrical Engineering/Electronics, Computer, Telecommunications and Information Technology"
+          }
+        ]
+      }
+    ],
+    "year": 2011,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2011-05-17",
+    "endDate": "2011-05-20",
+    "registerUrl": "http://ecticon2011.ecticon.org/",
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "ecti-card-2011",
+    "name": "ECTI-CARD 2011",
+    "title": "The 3rd Conference on Application Research and Development (Download Proceeding)",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "The 3rd Conference on Application Research and Development (Download Proceeding)"
+          }
+        ]
+      }
+    ],
+    "year": 2011,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2011-05-05",
+    "endDate": "2011-05-06",
+    "registerUrl": "http://ecticard2011.ecticard.org/content/",
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "itc-cscc-2010",
+    "name": "ITC-CSCC 2010",
+    "title": "The 25th International Technical Conference on Circuits/Systems, Computers and Communications",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "The 25th International Technical Conference on Circuits/Systems, Computers and Communications"
+          }
+        ]
+      }
+    ],
+    "year": 2010,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2010-07-04",
+    "endDate": "2010-07-07",
+    "registerUrl": null,
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "ecti-con-2010",
+    "name": "ECTI-CON 2010",
+    "title": "The 7th International Conference on Electrical Engineering/Electronics, Computer, Telecommunications and Information Technology",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "The 7th International Conference on Electrical Engineering/Electronics, Computer, Telecommunications and Information Technology"
+          }
+        ]
+      }
+    ],
+    "year": 2010,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2010-05-19",
+    "endDate": "2010-05-21",
+    "registerUrl": "http://ecticon2010.ecticon.org/",
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "ecti-card-2010",
+    "name": "ECTI-CARD 2010",
+    "title": "The 2nd Conference on Application Research and Development",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "The 2nd Conference on Application Research and Development"
+          }
+        ]
+      }
+    ],
+    "year": 2010,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2010-05-10",
+    "endDate": "2010-05-12",
+    "registerUrl": "http://ecticard2010.ecticard.org/",
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "isap-2009",
+    "name": "ISAP 2009",
+    "title": "2009 International Symposium on Antennas and Propagation",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "2009 International Symposium on Antennas and Propagation"
+          }
+        ]
+      }
+    ],
+    "year": 2009,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2009-10-20",
+    "endDate": "2009-10-23",
+    "registerUrl": null,
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "ecti-con-2009",
+    "name": "ECTI-CON 2009",
+    "title": "The 6th International Conference on Electrical Engineering/Electronics, Computer, Telecommunications and Information Technology",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "The 6th International Conference on Electrical Engineering/Electronics, Computer, Telecommunications and Information Technology"
+          }
+        ]
+      }
+    ],
+    "year": 2009,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2009-05-06",
+    "endDate": "2009-05-09",
+    "registerUrl": "http://ecticon2009.ecticon.org/",
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "ecti-card-2009",
+    "name": "ECTI-CARD 2009",
+    "title": "The 1st Conference on Application Research and Development (Download Proceeding)",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "The 1st Conference on Application Research and Development (Download Proceeding)"
+          }
+        ]
+      }
+    ],
+    "year": 2009,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2009-05-04",
+    "endDate": "2009-05-06",
+    "registerUrl": "http://ecticard2009.ecticard.org/",
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "ispacs-2008",
+    "name": "ISPACS 2008",
+    "title": "2008 International Symposium on Intelligent Signal Processing and Communication Systems",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "2008 International Symposium on Intelligent Signal Processing and Communication Systems"
+          }
+        ]
+      }
+    ],
+    "year": 2009,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2009-02-08",
+    "endDate": "2009-02-11",
+    "registerUrl": null,
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "ecti-con-2007",
+    "name": "ECTI-CON 2007",
+    "title": "The 4th International Conference on Electrical Engineering/Electronics, Computer, Telecommunications and Information Technology",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "The 4th International Conference on Electrical Engineering/Electronics, Computer, Telecommunications and Information Technology"
+          }
+        ]
+      }
+    ],
+    "year": 2007,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2007-05-09",
+    "endDate": "2007-05-12",
+    "registerUrl": null,
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "ecti-con-2006",
+    "name": "ECTI-CON 2006",
+    "title": "The 3rd International Conference on Electrical Engineering/Electronics, Computer, Telecommunications and Information Technology",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "The 3rd International Conference on Electrical Engineering/Electronics, Computer, Telecommunications and Information Technology"
+          }
+        ]
+      }
+    ],
+    "year": 2006,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2006-05-10",
+    "endDate": "2006-05-13",
+    "registerUrl": null,
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "ecti-con-2005",
+    "name": "ECTI-CON 2005",
+    "title": "The 2nd International Conference on Electrical Engineering/Electronics, Computer, Telecommunications and Information Technology",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "The 2nd International Conference on Electrical Engineering/Electronics, Computer, Telecommunications and Information Technology"
+          }
+        ]
+      }
+    ],
+    "year": 2005,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2005-05-12",
+    "endDate": "2005-05-13",
+    "registerUrl": null,
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  },
+  {
+    "slug": "ecti-con-2004",
+    "name": "ECTI-CON 2004",
+    "title": "The 1st International Conference on Electrical Engineering/Electronics, Computer, Telecommunications and Information Technology",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "The 1st International Conference on Electrical Engineering/Electronics, Computer, Telecommunications and Information Technology"
+          }
+        ]
+      }
+    ],
+    "year": 2004,
+    "type": "conference",
+    "eventStatus": "finished",
+    "startDate": "2004-05-13",
+    "endDate": "2004-05-14",
+    "registerUrl": null,
+    "sourceUrl": "https://ecti-thailand.org/conference-activities/"
+  }
+]

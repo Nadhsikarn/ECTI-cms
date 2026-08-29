@@ -19,11 +19,9 @@
  */
 
 import { readFile } from "node:fs/promises";
+import { api, existingSlugs, createInBothLocales, requireToken, STRAPI_URL } from "./lib/strapi.mjs";
 
 const DEFAULT_IN = "scripts/data/legacy-news.json";
-
-const STRAPI_URL = (process.env.STRAPI_URL || "http://localhost:1337").replace(/\/+$/, "");
-const TOKEN = process.env.STRAPI_API_TOKEN?.trim();
 
 /**
  * Where to look for an image whose own URL no longer resolves.
@@ -37,9 +35,6 @@ const MEDIA_FALLBACK_ORIGIN = (
   process.env.LEGACY_MEDIA_ORIGIN || "https://ecti-thailand.org"
 ).replace(/\/+$/, "");
 
-/** Both locales get the same content — see the note above importPost. */
-const LOCALES = ["th", "en"];
-
 function parseArgs(argv) {
   const args = { in: DEFAULT_IN, dryRun: false, limit: 0 };
   for (let i = 0; i < argv.length; i += 1) {
@@ -51,54 +46,6 @@ function parseArgs(argv) {
     else throw new Error(`Unknown argument: ${flag}`);
   }
   return args;
-}
-
-async function api(path, options = {}) {
-  const res = await fetch(`${STRAPI_URL}${path}`, {
-    ...options,
-    headers: {
-      authorization: `Bearer ${TOKEN}`,
-      ...(options.body instanceof FormData ? {} : { "content-type": "application/json" }),
-      ...options.headers,
-    },
-    signal: AbortSignal.timeout(60_000),
-  });
-
-  const text = await res.text();
-  const data = text ? JSON.parse(text) : null;
-
-  if (!res.ok) {
-    // Strapi puts the useful part in details.errors — the top-level message is
-    // only ever "N errors occurred", which names neither the field nor the rule.
-    const fields = data?.error?.details?.errors
-      ?.map((e) => e.message)
-      .slice(0, 5)
-      .join("; ");
-    const detail = fields || data?.error?.message || text.slice(0, 300);
-    throw new Error(`${options.method ?? "GET"} ${path} → ${res.status}: ${detail}`);
-  }
-  return data;
-}
-
-/**
- * Every slug already in the CMS, drafts included.
- *
- * `status=draft` is what returns them all: in Strapi 5 every document has a
- * draft version, so this is a superset of the published ones. Asking only for
- * published entries would miss anything imported by an earlier run and not yet
- * reviewed — and then import it a second time.
- */
-async function existingSlugs() {
-  const slugs = new Set();
-  for (let page = 1; ; page += 1) {
-    const res = await api(
-      `/api/news-posts?status=draft&locale=th&fields[0]=slug` +
-        `&pagination[page]=${page}&pagination[pageSize]=100`
-    );
-    for (const entry of res.data) if (entry.slug) slugs.add(entry.slug);
-    if (page >= (res.meta?.pagination?.pageCount ?? 1)) break;
-  }
-  return slugs;
 }
 
 /** documentId of each tag, keyed by its `key` enum, so posts can be related to one. */
@@ -176,14 +123,7 @@ async function localiseImages(blocks, cache, report) {
 }
 
 /**
- * Creates the post in Thai, then adds the English localisation.
- *
- * Both carry the same text. The archive is 47 English posts and 13 Thai ones,
- * and none of them have a translation — putting each in only the locale it
- * happens to be written in would hide four out of five posts from whichever
- * language a reader picked. Same content in both is the version where the
- * archive is complete either way; a translation can replace one side later
- * without the other moving.
+ * Uploads the images, then hands the rest to the shared create.
  */
 async function importPost(post, tags, imageCache, report) {
   const cover = post.coverImageUrl
@@ -207,21 +147,7 @@ async function importPost(post, tags, imageCache, report) {
     ...(tagId ? { tags: [tagId] } : {}),
   };
 
-  const created = await api("/api/news-posts?locale=th", {
-    method: "POST",
-    body: JSON.stringify({ data }),
-  });
-
-  const documentId = created.data.documentId;
-
-  // The second locale is a PUT on the same document — a second POST would make
-  // a separate post rather than a translation of this one.
-  await api(`/api/news-posts/${documentId}?locale=en`, {
-    method: "PUT",
-    body: JSON.stringify({ data }),
-  });
-
-  return documentId;
+  return createInBothLocales("news-posts", data);
 }
 
 async function main() {
@@ -235,13 +161,13 @@ async function main() {
     return;
   }
 
-  if (!TOKEN) throw new Error("STRAPI_API_TOKEN is not set.");
+  requireToken();
 
   const posts = JSON.parse(await readFile(args.in, "utf8"));
   console.log(`Read ${posts.length} posts from ${args.in}`);
   console.log(`Target ${STRAPI_URL}\n`);
 
-  const [have, tags] = await Promise.all([existingSlugs(), tagsByKey()]);
+  const [have, tags] = await Promise.all([existingSlugs("news-posts"), tagsByKey()]);
   console.log(`CMS already holds ${have.size} news posts`);
 
   const missingTags = [...new Set(posts.map((p) => p.tagKey))].filter((k) => !tags.has(k));
