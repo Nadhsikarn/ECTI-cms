@@ -1,0 +1,50 @@
+name: ขอฟีเจอร์หรือปรับปรุง
+description: อยากให้เพิ่มหรือแก้อะไร
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: ปัญหาหรือความต้องการ
+      description: อะไรที่ตอนนี้ทำไม่ได้ หรือทำได้แต่ลำบาก — เขียนจากมุมคนกรอกข้อมูลหรือคนใช้เว็บ
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: อยากให้เป็นยังไง
+      description: ถ้ามีภาพในหัวแล้วเขียนมาได้เลย ถ้ายังไม่มีก็ข้ามได้
+    validations:
+      required: true
+
+  - type: textarea
+    id: schema
+    attributes:
+      label: กระทบ schema ไหม
+      description: >-
+        ต้องเพิ่ม/แก้ field หรือ content type ไหม ถ้าใช่ ข้อมูลเดิมที่มีอยู่แล้ว
+        จะเป็นยังไง
+      placeholder: |
+        - content type: ...
+        - field ที่เพิ่ม/แก้: ...
+        - ข้อมูลเดิม: ...
+
+  - type: dropdown
+    id: front
+    attributes:
+      label: ต้องแก้ ECTI-front ด้วยไหม
+      options:
+        - ไม่ต้อง
+        - ต้องแก้ และต้อง deploy พร้อมกัน
+        - ต้องแก้ แต่ deploy แยกได้
+    validations:
+      required: true
+
+  - type: textarea
+    id: done
+    attributes:
+      label: ถือว่าเสร็จเมื่อไหร่
+      placeholder: |
+        - [ ] ...
+        - [ ] ทำงานทั้ง th และ en
