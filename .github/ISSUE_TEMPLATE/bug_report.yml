@@ -1,0 +1,70 @@
+name: รายงานบั๊ก
+description: มีอะไรทำงานไม่ถูกต้อง
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        ถ้าเป็นช่องโหว่ความปลอดภัย **อย่าใช้แบบฟอร์มนี้** — repo เป็น public
+        ให้เปิด private security advisory แทน
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: ปัญหา
+      description: เกิดอะไรขึ้น และควรจะเป็นยังไงแทน
+      placeholder: |
+        ตอนนี้: ...
+        ที่ควรเป็น: ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: ทำให้เกิดซ้ำยังไง
+      description: ขั้นตอนที่คนอื่นทำตามแล้วเห็นเหมือนกัน ถ้าเป็น API ใส่คำสั่งที่ยิงมาเลย
+      placeholder: |
+        1. เข้า admin > Content Manager > ...
+        2. กด ...
+        3. เห็น ...
+
+        หรือ: curl 'http://localhost:1337/api/...'
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: เกิดตรงไหน
+      options:
+        - หน้า admin
+        - public REST API
+        - webhook / การ revalidate ฝั่ง front
+        - newsletter (Brevo)
+        - การ seed หรือ migration ตอนบูต
+        - อื่นๆ
+    validations:
+      required: true
+
+  - type: input
+    id: content_type
+    attributes:
+      label: content type ที่เกี่ยว
+      placeholder: "เช่น api::news-post.news-post"
+
+  - type: dropdown
+    id: environment
+    attributes:
+      label: เจอที่ไหน
+      options:
+        - Strapi Cloud (production)
+        - เครื่อง dev
+    validations:
+      required: true
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: อย่างอื่น
+      description: log จาก Strapi, screenshot, response ที่ได้

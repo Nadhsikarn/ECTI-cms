@@ -1,0 +1,7 @@
+blank_issues_enabled: false
+contact_links:
+  - name: รายงานช่องโหว่ความปลอดภัย
+    url: https://github.com/Nadhsikarn/ECTI-cms/security/advisories/new
+    about: >-
+      repo นี้เป็น public — อย่าเปิด issue สาธารณะสำหรับช่องโหว่
+      ใช้ private security advisory แทน จะได้แก้เสร็จก่อนที่รายละเอียดจะเปิดเผย
