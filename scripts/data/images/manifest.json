@@ -1,0 +1,428 @@
+{
+  "http://www.ecti.ecti-thailand.org/wp-content/uploads/2014/11/Screen-Shot-2561-11-01.png": {
+    "file": "1a0c0ba0-Screen-Shot-2561-11-01.png",
+    "bytes": 334669,
+    "usedBy": "ecti-journal-for-industry",
+    "via": "fallback"
+  },
+  "http://www.ecti.ecti-thailand.org/wp-content/uploads/2018/12/สายอากาศ_cover-300x200.png": {
+    "file": "3eea0b5b-_cover-300x200.png",
+    "bytes": 76750,
+    "usedBy": "workshop-13773",
+    "via": "fallback"
+  },
+  "http://www.ecti.ecti-thailand.org/wp-content/uploads/2019/02/ECTI-Ac1-300x169-300x169.jpg": {
+    "file": "797fefc6-ECTI-Ac1-300x169-300x169.jpg",
+    "bytes": 47332,
+    "usedBy": "the-1st-ecti-activities-on-communications-2018",
+    "via": "fallback"
+  },
+  "http://www.ecti.ecti-thailand.org/wp-content/uploads/2019/02/ECTI-Ac3-300x169-300x169.jpg": {
+    "file": "261f1f4a-ECTI-Ac3-300x169-300x169.jpg",
+    "bytes": 35583,
+    "usedBy": "the-1st-ecti-activities-on-communications-2018",
+    "via": "fallback"
+  },
+  "http://www.ecti.ecti-thailand.org/wp-content/uploads/2019/02/ECTI-Acc4-300x169-300x169.jpg": {
+    "file": "5c5d1837-ECTI-Acc4-300x169-300x169.jpg",
+    "bytes": 40331,
+    "usedBy": "the-1st-ecti-activities-on-communications-2018",
+    "via": "fallback"
+  },
+  "http://www.ecti.ecti-thailand.org/wp-content/uploads/2019/02/IMG_3448-300x169-300x169.jpg": {
+    "file": "ff3cdc68-IMG_3448-300x169-300x169.jpg",
+    "bytes": 48920,
+    "usedBy": "the-1st-ecti-activities-on-communications-2018",
+    "via": "fallback"
+  },
+  "http://www.ecti.ecti-thailand.org/wp-content/uploads/2019/02/IMG_5196-300x225-300x225.jpg": {
+    "file": "73aa1cb1-IMG_5196-300x225-300x225.jpg",
+    "bytes": 38503,
+    "usedBy": "the-2nd-ecti-activities-on-communications-2018",
+    "via": "fallback"
+  },
+  "http://www.ecti.ecti-thailand.org/wp-content/uploads/2019/02/IMG_5203-300x225-300x225.jpg": {
+    "file": "e7a25256-IMG_5203-300x225-300x225.jpg",
+    "bytes": 45706,
+    "usedBy": "the-2nd-ecti-activities-on-communications-2018",
+    "via": "fallback"
+  },
+  "http://www.ecti.ecti-thailand.org/wp-content/uploads/2019/02/IMG_5206-300x225-300x225.jpg": {
+    "file": "8620afc5-IMG_5206-300x225-300x225.jpg",
+    "bytes": 33545,
+    "usedBy": "the-2nd-ecti-activities-on-communications-2018",
+    "via": "fallback"
+  },
+  "http://www.ecti.ecti-thailand.org/wp-content/uploads/2019/02/IMG20180929101418-300x225.jpg": {
+    "file": "c89e150d-IMG20180929101418-300x225.jpg",
+    "bytes": 21324,
+    "usedBy": "tutorial-workshop-of-deep-learning-research-under-iiai-icthrd-program",
+    "via": "fallback"
+  },
+  "http://www.ecti.ecti-thailand.org/wp-content/uploads/2019/02/posterfi-2-709x1024-709x1024.png": {
+    "file": "7f99e295-posterfi-2-709x1024-709x1024.png",
+    "bytes": 747850,
+    "usedBy": "integrated-circuits-for-thailand-4-0",
+    "via": "fallback"
+  },
+  "http://www.ecti.ecti-thailand.org/wp-content/uploads/2019/02/PR-Prof.-Dr.-Victora-page-001-300x212-300x212.jpg": {
+    "file": "959b6125-PR-Prof.-Dr.-Victora-page-001-300x212-300x212.jpg",
+    "bytes": 41637,
+    "usedBy": "the-2nd-ecti-activities-on-communications-2018",
+    "via": "fallback"
+  },
+  "http://www.ecti.ecti-thailand.org/wp-content/uploads/2019/02/Special-Lecture-Page_1-1-768x994.jpg": {
+    "file": "c406cf25-Special-Lecture-Page_1-1-768x994.jpg",
+    "bytes": 81508,
+    "usedBy": "ecti-special-lecture-modern-electric-trend-in-transportation",
+    "via": "fallback"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2018/11/1st-ECTI_cover.png": {
+    "file": "62c3a286-1st-ECTI_cover.png",
+    "bytes": 368893,
+    "usedBy": "the-1st-ecti-activities-on-communications-2018",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2018/11/2nd-ECTI_cover.png": {
+    "file": "9d7337b7-2nd-ECTI_cover.png",
+    "bytes": 218427,
+    "usedBy": "the-2nd-ecti-activities-on-communications-2018",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2018/11/Deep-learning_cover.png": {
+    "file": "edbb9c36-Deep-learning_cover.png",
+    "bytes": 328493,
+    "usedBy": "tutorial-workshop-of-deep-learning-research-under-iiai-icthrd-program",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2018/12/Circuit_cover.png": {
+    "file": "05565bf3-Circuit_cover.png",
+    "bytes": 13247,
+    "usedBy": "integrated-circuits-for-thailand-4-0",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2018/12/Kouki_cover.png": {
+    "file": "26e6380f-Kouki_cover.png",
+    "bytes": 104420,
+    "usedBy": "ecti-special-lecture-modern-electric-trend-in-transportation",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2018/12/สายอากาศ_cover.png": {
+    "file": "f81551fd-_cover.png",
+    "bytes": 152341,
+    "usedBy": "workshop-13773",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2019/02/David_cover.png": {
+    "file": "341ff097-David_cover.png",
+    "bytes": 130594,
+    "usedBy": "2019-distinguished-lecturer-of-ectis-system-control-society-announced",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2019/02/Dusit_cover.png": {
+    "file": "c695d0ef-Dusit_cover.png",
+    "bytes": 108666,
+    "usedBy": "curabitur-malesuadas-nisi",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2019/02/Prayoot.png": {
+    "file": "2f548cec-Prayoot.png",
+    "bytes": 94308,
+    "usedBy": "2019-distinguished-lecturer-of-ectis-electromagnetic-society-announced",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2021/08/candidate.png": {
+    "file": "3a9fb45b-candidate.png",
+    "bytes": 324106,
+    "usedBy": "ecti-candidates-announcement-for-2022-2023-ecti-association-electrical-engineering-electronics-computer-telecommunications-and-information-technology-election",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2021/08/commitee.png": {
+    "file": "83704276-commitee.png",
+    "bytes": 265214,
+    "usedBy": "announcement-ecti-association-electrical-engineering-electronics-computer-telecommunications-and-information-technology-general-election-committee",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2021/08/form.png": {
+    "file": "b19ee660-form.png",
+    "bytes": 291952,
+    "usedBy": "application-form-2022-2023-ecti-association-electrical-engineering-electronics-computer-telecommunications-and-information-technology-committee-election",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2021/08/vote-1.png": {
+    "file": "67480e9f-vote-1.png",
+    "bytes": 224684,
+    "usedBy": "announcement-ecti-association-electrical-engineering-electronics-computer-telecommunications-and-information-technology-general-election-2",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2021/12/male-business-executive-giving-speech_107420-63809.jpg": {
+    "file": "5e92954a-male-business-executive-giving-speech_107420-63809.jpg",
+    "bytes": 39148,
+    "usedBy": "legacy-14836",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2022/01/What-is-Research-Purpose-of-Research-phul4s3cbwe0xam190dnc4kz3z616ajmfkygodcdqg.png": {
+    "file": "8ccfe4b3-What-is-Research-Purpose-of-Research-phul4s3cbwe0xam190dnc4kz3z616ajmfkygodcdqg.png",
+    "bytes": 426751,
+    "usedBy": "legacy-14843",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2022/09/Poster-1-ECTI-DLS-Raj.jpg": {
+    "file": "7a302b07-Poster-1-ECTI-DLS-Raj.jpg",
+    "bytes": 268852,
+    "usedBy": "2022-distinguished-lecture-series-1",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2022/09/Poster-2-ECTI-DLS-Piya.jpg": {
+    "file": "709535c9-Poster-2-ECTI-DLS-Piya.jpg",
+    "bytes": 251647,
+    "usedBy": "2022-ecti-distinguished-lecture-series-2",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2022/11/ECTI-CARD2023.jpg": {
+    "file": "84e5f5bd-ECTI-CARD2023.jpg",
+    "bytes": 279336,
+    "usedBy": "the-15th-conference-on-application-research-and-development",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2022/11/msedge_jD41JaRMDz.png": {
+    "file": "7ef6ebf7-msedge_jD41JaRMDz.png",
+    "bytes": 389019,
+    "usedBy": "the-2023-3rd-international-symposium-on-instrumentation-control-artificial-intelligence-and-robotics-at-faculty-of-engineering-kasetsart-university-bangkok-thailand-18-20-january-2023",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2022/11/msedge_vSdX7b3zqx-1-e1667353824661.png": {
+    "file": "d4c31f24-msedge_vSdX7b3zqx-1-e1667353824661.png",
+    "bytes": 70404,
+    "usedBy": "ecti-con2023",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2023/01/3.png": {
+    "file": "d040222e-3.png",
+    "bytes": 1141469,
+    "usedBy": "2023-ecti-distinguished-lecture-series-3",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2023/02/Flyer_ECTI-Lecture4-with-Prof-Siegfried-M.-Rump.png": {
+    "file": "23b0520f-Flyer_ECTI-Lecture4-with-Prof-Siegfried-M.-Rump.png",
+    "bytes": 1206062,
+    "usedBy": "2023-ecti-distinguished-lecture-series-4",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2023/02/Flyer_ECTI-Lecture5-Prof-Heberling.png": {
+    "file": "5f799865-Flyer_ECTI-Lecture5-Prof-Heberling.png",
+    "bytes": 333133,
+    "usedBy": "2023-ecti-distinguished-lecture-series-5",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2023/02/Second-Draft-3.png": {
+    "file": "8d4ad993-Second-Draft-3.png",
+    "bytes": 1020372,
+    "usedBy": "2023-ecti-distinguished-lecture-series-6",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2023/09/324272.jpg": {
+    "file": "1ccc9070-324272.jpg",
+    "bytes": 220433,
+    "usedBy": "the-21st-international-conference-on-electrical-engineering-electronics-computer-telecommunications-and-information-technology-may-27-30-2024",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2023/10/01-02-2567-02-1200x1698.png": {
+    "file": "394aa28e-01-02-2567-02-1200x1698.png",
+    "bytes": 1899147,
+    "usedBy": "ecti-card-2024",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2023/10/01-02-2567.png": {
+    "file": "c3724083-01-02-2567.png",
+    "bytes": 2841902,
+    "usedBy": "ecti-card-2024",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2023/10/384050284_283085731337249_7330139737803619481_n1.jpg": {
+    "file": "e486de1b-384050284_283085731337249_7330139737803619481_n1.jpg",
+    "bytes": 247419,
+    "usedBy": "2023-ecti-distinguished-lecture-series-7",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2023/10/messageImage_1697816915254.jpg": {
+    "file": "8d168d37-messageImage_1697816915254.jpg",
+    "bytes": 888486,
+    "usedBy": "2023-ecti-distinguished-lecture-series-8",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2024/01/ECTI-Seminar-30Jan6.png": {
+    "file": "e1f41d1f-ECTI-Seminar-30Jan6.png",
+    "bytes": 1559632,
+    "usedBy": "2024-ecti-distinguished-lecture-1",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2024/02/110732.jpg": {
+    "file": "41d0768a-110732.jpg",
+    "bytes": 164909,
+    "usedBy": "itc-cscc-2024",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2024/02/ECTI-Seminar-30Jan8.png": {
+    "file": "f2a467e3-ECTI-Seminar-30Jan8.png",
+    "bytes": 1273631,
+    "usedBy": "2024-ecti-distinguished-lecture-2",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2024/02/Industry-4.0-Newsletter_v2.jpg": {
+    "file": "5508c597-Industry-4.0-Newsletter_v2.jpg",
+    "bytes": 465231,
+    "usedBy": "new-education-program-in-industry-4-0",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2024/03/Call-for-Papers_JCSSE-2024_110324.jpg": {
+    "file": "2a4e5a14-Call-for-Papers_JCSSE-2024_110324.jpg",
+    "bytes": 886577,
+    "usedBy": "jcsse-2024",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2024/06/ECTI-Seminar-30Jan1.png": {
+    "file": "fbafb8fd-ECTI-Seminar-30Jan1.png",
+    "bytes": 1683679,
+    "usedBy": "2024-ecti-distinguished-lecture-3",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2024/10/14460-scaled.jpg": {
+    "file": "d512a51d-14460-scaled.jpg",
+    "bytes": 753479,
+    "usedBy": "the-22st-international-conference-on-electrical-engineering-electronics-computer-telecommunications-and-information-technology-may-20-to-23-in-bangkok",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2024/10/304464.png": {
+    "file": "efaebb19-304464.png",
+    "bytes": 1502717,
+    "usedBy": "2024-ecti-distinguished-lecture-5",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2024/10/8TgfV3Cl1vZGYTV5dgNHFzCSFrUqY46booShhFOePEzTU5724rWxTP8v8H9SSt0wPE5pUAAAAASUVORK5CYII.png": {
+    "file": "e63c5858-8TgfV3Cl1vZGYTV5dgNHFzCSFrUqY46booShhFOePEzTU5724rWxTP8v8H9SSt0wPE5pUAAAAASUVORK5CYII.png",
+    "bytes": 1711006,
+    "usedBy": "sice-fes-2025",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2024/10/download-1-1.png": {
+    "file": "62fd8fd2-download-1-1.png",
+    "bytes": 1849240,
+    "usedBy": "ecti-card-2025",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2024/10/download-1.png": {
+    "file": "3caea16e-download-1.png",
+    "bytes": 1462785,
+    "usedBy": "ecti-card-2025",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2024/10/download.png": {
+    "file": "622c8cac-download.png",
+    "bytes": 833207,
+    "usedBy": "sice-fes-2025",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2024/10/LINE_ALBUM_MOU-Renewal-ICROS-ECTI-30.10.2024_241031_3.jpg": {
+    "file": "5c73e398-LINE_ALBUM_MOU-Renewal-ICROS-ECTI-30.10.2024_241031_3.jpg",
+    "bytes": 98111,
+    "usedBy": "mou-between-icros-and-ecti-association",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2024/10/LINE_ALBUM_MOU-Renewal-ICROS-ECTI-30.10.2024_241031_4.jpg": {
+    "file": "f443d910-LINE_ALBUM_MOU-Renewal-ICROS-ECTI-30.10.2024_241031_4.jpg",
+    "bytes": 129463,
+    "usedBy": "mou-between-icros-and-ecti-association",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2025/01/88676.png": {
+    "file": "410a620d-88676.png",
+    "bytes": 609738,
+    "usedBy": "2025-ecti-distinguished-lecture-1",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2025/08/260043.jpg": {
+    "file": "521360e9-260043.jpg",
+    "bytes": 787355,
+    "usedBy": "2026-international-technical-conference-on-circuits-systems-computers-and-communications-itc-cscc-2026",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2025/08/260044-scaled.jpg": {
+    "file": "a3f8a996-260044-scaled.jpg",
+    "bytes": 745158,
+    "usedBy": "2026-international-technical-conference-on-circuits-systems-computers-and-communications-itc-cscc-2026",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2025/08/260045.jpg": {
+    "file": "21c426ff-260045.jpg",
+    "bytes": 664992,
+    "usedBy": "2026-international-technical-conference-on-circuits-systems-computers-and-communications-itc-cscc-2026",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2025/08/265034.jpg": {
+    "file": "a6dd5dd0-265034.jpg",
+    "bytes": 200551,
+    "usedBy": "2025-ecti-distinguished-lecture-2",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2025/08/265042.jpg": {
+    "file": "8a14c472-265042.jpg",
+    "bytes": 206138,
+    "usedBy": "2025-ecti-distinguished-lecture-3",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2025/09/2026-Call-for-Paper_page-0001.jpg": {
+    "file": "3600ba71-2026-Call-for-Paper_page-0001.jpg",
+    "bytes": 1248782,
+    "usedBy": "the-11th-international-conference-on-digital-arts-media-and-technology-damt",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2025/09/ECTI2026-Call-for-Paper-4.png": {
+    "file": "b7f3c458-ECTI2026-Call-for-Paper-4.png",
+    "bytes": 802491,
+    "usedBy": "the-23rd-international-conference-on-electrical-engineering-electronics-computer-telecommunications-and-information-technology-may-27-to-30-in-chonburi",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2025/11/339865_0.jpg": {
+    "file": "3b304fd7-339865_0.jpg",
+    "bytes": 130624,
+    "usedBy": "signing-ceremony-of-the-cooperation-agreement-between-the-radio-and-electronics-association-of-vietnam-rev-and-ecti-association",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2025/11/339866_0.jpg": {
+    "file": "cea805a8-339866_0.jpg",
+    "bytes": 173821,
+    "usedBy": "signing-ceremony-of-the-cooperation-agreement-between-the-radio-and-electronics-association-of-vietnam-rev-and-ecti-association",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2025/11/S__13271052.jpg": {
+    "file": "22d2160a-S__13271052.jpg",
+    "bytes": 861437,
+    "usedBy": "legacy-15474",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2026/02/622620833_1430247735563227_957417816746409286_n.jpg": {
+    "file": "ef0d690e-622620833_1430247735563227_957417816746409286_n.jpg",
+    "bytes": 189266,
+    "usedBy": "2026-ecti-distinguished-lecture-1-date-9th-february-2026-time-9-00-11-00am",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2026/02/624840725_1430247778896556_4746974447461594597_n.jpg": {
+    "file": "c0d804cb-624840725_1430247778896556_4746974447461594597_n.jpg",
+    "bytes": 341468,
+    "usedBy": "2026-ecti-distinguished-lecture-1-date-9th-february-2026-time-9-00-11-00am",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2026/03/S__64102406.jpg": {
+    "file": "609c8453-S__64102406.jpg",
+    "bytes": 403645,
+    "usedBy": "2026-international-technical-conference-on-circuits-systems-computers-and-communications-itc-cscc-2026-final-extended-march-31-2026",
+    "via": "direct"
+  },
+  "https://ecti-thailand.org/wp-content/uploads/2026/07/1784515111487-scaled.jpg": {
+    "file": "52d163f5-1784515111487-scaled.jpg",
+    "bytes": 614648,
+    "usedBy": "chula-ee-special-talk-a-hybrid-modal-scattering-propagation-model-for-tunnels",
+    "via": "direct"
+  }
+}

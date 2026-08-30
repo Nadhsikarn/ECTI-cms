@@ -27,15 +27,33 @@ install that is on its way out.
 # 1. Read the old site into scripts/data/legacy-news.json
 pnpm news:scrape
 
-# 2. See what would be created, without writing anything
+# 2. Pull the images onto disk (see below — do this early)
+pnpm images:download
+
+# 3. See what would be created, without writing anything
 STRAPI_URL=... STRAPI_API_TOKEN=... pnpm news:import --dry-run
 
-# 3. Do it
+# 4. Do it
 STRAPI_URL=... STRAPI_API_TOKEN=... pnpm news:import
 ```
 
-`legacy-news.json` is committed. The old site is the only source for this
-content, and once it is switched off the file is the archive.
+### The images are the perishable half
+
+`legacy-news.json` stores image *URLs*, not images — 135 KB of text pointing at
+36 MB of pictures that live on the old WordPress server and nowhere else. The
+text survives in git; without a second step the pictures do not.
+
+`pnpm images:download` fetches all of them into `scripts/data/images/`, which is
+committed alongside the JSON. That is what makes the archive an archive: the
+import can run next month against a site that has already been switched off.
+
+The import prefers a local copy and only reaches for the network when one is
+missing, so a checkout with the images present never touches the old site at
+all. Re-running the downloader skips what it already has.
+
+Of the 72 images referenced, **71 are on disk**. The last one — a 2018 upload —
+404s on both the old subdomain and the current host; it was already gone before
+any of this was written.
 
 ### What the import does
 
