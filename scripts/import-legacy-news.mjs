@@ -19,9 +19,24 @@
  */
 
 import { readFile } from "node:fs/promises";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 import { api, existingSlugs, createInBothLocales, requireToken, STRAPI_URL } from "./lib/strapi.mjs";
 
 const DEFAULT_IN = "scripts/data/legacy-news.json";
+
+/**
+ * Images downloaded ahead of time by download-legacy-images.mjs.
+ *
+ * Resolved against this file rather than the working directory, because the
+ * import is run from the repo root but the pictures belong to the script.
+ * Missing manifest is not an error: it just means nobody ran the downloader,
+ * and every image is fetched from the old site the way it always was.
+ */
+const IMAGE_DIR = join(dirname(fileURLToPath(import.meta.url)), "data", "images");
+const LOCAL_IMAGES = await readFile(join(IMAGE_DIR, "manifest.json"), "utf8")
+  .then(JSON.parse)
+  .catch(() => ({}));
 
 /**
  * Where to look for an image whose own URL no longer resolves.
@@ -65,6 +80,21 @@ async function tagsByKey() {
  * loses its images.
  */
 async function fetchImage(url) {
+  // A copy on disk wins over the network. download-legacy-images.mjs puts one
+  // there for every image the archive refers to, which is what lets this run
+  // long after the old site is gone — and on a run where it is still up, it
+  // saves 36 MB of downloads and any chance of a flaky fetch halfway through.
+  const local = LOCAL_IMAGES[url];
+  if (local) {
+    try {
+      return new Response(await readFile(join(IMAGE_DIR, local.file)));
+    } catch {
+      // Manifest lists it but the file is missing — fall through to the network
+      // rather than failing, since the archive may have been checked out
+      // without the images.
+    }
+  }
+
   try {
     const res = await fetch(url, { signal: AbortSignal.timeout(60_000) });
     if (res.ok) return res;
