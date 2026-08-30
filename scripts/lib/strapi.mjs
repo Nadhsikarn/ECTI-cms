@@ -7,7 +7,25 @@
  * importer and not the other.
  */
 
-const STRAPI_URL = (process.env.STRAPI_URL || "http://localhost:1337").replace(/\/+$/, "");
+/**
+ * The API lives at the server root; /admin is the panel a person logs into.
+ *
+ * They get confused because the URL anyone has to hand is the one open in their
+ * browser, which is the admin. Pasting that produces requests to
+ * /admin/api/news-posts, which Strapi answers with the panel's HTML — and the
+ * only symptom is `Unexpected token '<'` from JSON.parse, several layers away
+ * from the setting that caused it. Trimming it costs a line.
+ */
+function normaliseUrl(raw) {
+  const trimmed = raw.replace(/\/+$/, "");
+  const withoutAdmin = trimmed.replace(/\/admin$/, "");
+  if (withoutAdmin !== trimmed) {
+    console.warn(`Note: dropped /admin from STRAPI_URL — using ${withoutAdmin}\n`);
+  }
+  return withoutAdmin;
+}
+
+const STRAPI_URL = normaliseUrl(process.env.STRAPI_URL || "http://localhost:1337");
 const TOKEN = process.env.STRAPI_API_TOKEN?.trim();
 
 export { STRAPI_URL };
@@ -28,7 +46,26 @@ export async function api(path, options = {}) {
   });
 
   const text = await res.text();
-  const data = text ? JSON.parse(text) : null;
+
+  // An HTML answer means the request never reached the content API — a wrong
+  // STRAPI_URL, or a proxy in the way. Saying so beats `Unexpected token '<'`,
+  // which names the symptom and hides the cause.
+  if (text.trimStart().startsWith("<")) {
+    throw new Error(
+      `${options.method ?? "GET"} ${path} → HTML instead of JSON (HTTP ${res.status}).\n` +
+        `  Asked: ${STRAPI_URL}${path}\n` +
+        `  STRAPI_URL should be the server root, with no /admin and no path.`
+    );
+  }
+
+  let data;
+  try {
+    data = text ? JSON.parse(text) : null;
+  } catch {
+    throw new Error(
+      `${options.method ?? "GET"} ${path} → HTTP ${res.status}, unreadable body: ${text.slice(0, 200)}`
+    );
+  }
 
   if (!res.ok) {
     // Strapi puts the useful part in details.errors — the top-level message is
