@@ -73,9 +73,26 @@ interface NewsletterConfig {
   siteUrl: string;
 }
 
+/**
+ * Whether a switch someone typed into a dashboard is on.
+ *
+ * This was `=== 'true'`, and the first person to configure it in Strapi Cloud
+ * typed TRUE. The feature stayed off, the log line said it was not enabled, and
+ * nothing connected that to the setting that looked correct on screen.
+ *
+ * Case and surrounding space carry no meaning here, and neither does the choice
+ * between true, yes and 1 — a switch that only accepts one spelling of on is
+ * a trap rather than a safeguard. Anything else is still off, so the guard
+ * against an accidental send is intact.
+ */
+function isOn(value: string | undefined): boolean {
+  const normalised = (value ?? '').trim().toLowerCase();
+  return normalised === 'true' || normalised === 'yes' || normalised === '1';
+}
+
 function readConfig(): NewsletterConfig {
   return {
-    enabled: process.env.NEWSLETTER_ENABLED === 'true',
+    enabled: isOn(process.env.NEWSLETTER_ENABLED),
     apiKey: process.env.BREVO_API_KEY,
     listId: Number(process.env.BREVO_LIST_ID),
     senderName: process.env.NEWSLETTER_SENDER_NAME || 'ECTI Association',
@@ -171,7 +188,8 @@ export async function broadcastNewsPost(strapi: Core.Strapi, documentId: string)
 
   if (!cfg.enabled) {
     strapi.log.info(
-      `[newsletter] NEWSLETTER_ENABLED is not "true" — would have prepared a draft for "${post.title}" (${url}) on list ${cfg.listId || '?'}.`
+      `[newsletter] NEWSLETTER_ENABLED is ${JSON.stringify(process.env.NEWSLETTER_ENABLED ?? null)}, which is not on — ` +
+        `would have prepared a draft for "${post.title}" (${url}) on list ${cfg.listId || '?'}.`
     );
     return;
   }
