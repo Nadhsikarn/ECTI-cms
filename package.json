@@ -9,6 +9,10 @@
     "deploy": "strapi deploy",
     "dev": "strapi develop",
     "develop": "strapi develop",
+    "news:scrape": "node scripts/scrape-legacy-news.mjs",
+    "news:import": "node scripts/import-legacy-news.mjs",
+    "conf:scrape": "node scripts/scrape-legacy-conferences.mjs",
+    "conf:import": "node scripts/import-legacy-conferences.mjs",
     "start": "strapi start",
     "strapi": "strapi",
     "upgrade": "npx @strapi/upgrade latest",
@@ -28,6 +32,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "node-html-parser": "^9.0.2",
     "typescript": "^5"
   },
   "engines": {
