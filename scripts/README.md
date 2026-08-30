@@ -33,8 +33,11 @@ pnpm images:download
 # 3. See what would be created, without writing anything
 STRAPI_URL=... STRAPI_API_TOKEN=... pnpm news:import --dry-run
 
-# 4. Do it
+# 4. Do it — posts go live immediately
 STRAPI_URL=... STRAPI_API_TOKEN=... pnpm news:import
+
+# ...or bring them in unpublished, to review first
+STRAPI_URL=... STRAPI_API_TOKEN=... pnpm news:import --draft
 ```
 
 ### The images are the perishable half
@@ -61,9 +64,12 @@ any of this was written.
   neither localised nor edited in the admin. A post that exists is left alone,
   including edits made to it since an earlier run — so a run that fails halfway
   can simply be run again.
-- **Creates drafts.** Sixty posts appearing on the live site the moment a script
-  finishes should not be something that happens by accident, and the HTML
-  conversion is worth a look before it is public.
+- **Publishes on arrival.** This list said "creates drafts" for a long time and
+  it was never true: a plain POST to Strapi 5's content API stamps `publishedAt`,
+  so every run has put its posts straight on the live site. Pass `--draft` for
+  the behaviour that was described here, which now exists — it adds
+  `status=draft` to both the Thai create and the English localisation, so the
+  two halves of a document do not end up in different states.
 - **Fills both locales with the same text.** The archive is 47 English posts and
   13 Thai ones and none of them have a translation; putting each in only the
   locale it happens to be written in would hide four out of five posts from
