@@ -90,6 +90,37 @@ function isOn(value: string | undefined): boolean {
   return normalised === 'true' || normalised === 'yes' || normalised === '1';
 }
 
+/**
+ * The origin every "read the full story" button in a campaign points at.
+ *
+ * Returns an empty string for anything a subscriber could not follow, and the
+ * send is abandoned rather than mailed with a broken link. A newsletter is the
+ * one thing here that cannot be corrected after the fact: the campaign leaves,
+ * and every copy keeps whatever address it was built with. A missing campaign
+ * is a bad afternoon; a campaign linking every reader to their own machine is
+ * a bad afternoon that is already in a thousand inboxes.
+ *
+ * localhost is called out separately because it is what a value copied from a
+ * development setup looks like, and it is the one that reads as fine on the
+ * screen of the person who set it.
+ */
+function resolveSiteUrl(raw: string | undefined): string {
+  const trimmed = (raw ?? '').trim().replace(/\/+$/, '');
+  if (!trimmed) return '';
+
+  let parsed: URL;
+  try {
+    parsed = new URL(trimmed);
+  } catch {
+    return '';
+  }
+
+  if (parsed.protocol !== 'https:' && parsed.protocol !== 'http:') return '';
+  if (/^(localhost|127\.|0\.0\.0\.0|\[::1\])/.test(parsed.hostname)) return '';
+
+  return trimmed;
+}
+
 function readConfig(): NewsletterConfig {
   return {
     enabled: isOn(process.env.NEWSLETTER_ENABLED),
@@ -97,7 +128,7 @@ function readConfig(): NewsletterConfig {
     listId: Number(process.env.BREVO_LIST_ID),
     senderName: process.env.NEWSLETTER_SENDER_NAME || 'ECTI Association',
     senderEmail: process.env.NEWSLETTER_SENDER_EMAIL,
-    siteUrl: (process.env.PUBLIC_SITE_URL || 'https://ecti-thailand.org').replace(/\/+$/, ''),
+    siteUrl: resolveSiteUrl(process.env.PUBLIC_SITE_URL),
   };
 }
 
@@ -107,6 +138,12 @@ function missingConfig(cfg: NewsletterConfig): string[] {
   if (!cfg.apiKey) missing.push('BREVO_API_KEY');
   if (!cfg.listId) missing.push('BREVO_LIST_ID');
   if (!cfg.senderEmail) missing.push('NEWSLETTER_SENDER_EMAIL');
+  if (!cfg.siteUrl) {
+    missing.push(
+      `PUBLIC_SITE_URL (currently ${JSON.stringify(process.env.PUBLIC_SITE_URL ?? null)} — ` +
+        `needs a public https address, not localhost)`
+    );
+  }
   return missing;
 }
 
@@ -184,7 +221,7 @@ export async function broadcastNewsPost(strapi: Core.Strapi, documentId: string)
     return;
   }
 
-  const url = `${cfg.siteUrl}/th/news/${post.slug}`;
+  const url = `${cfg.siteUrl || '(no PUBLIC_SITE_URL)'}/th/news/${post.slug}`;
 
   if (!cfg.enabled) {
     strapi.log.info(
@@ -233,7 +270,8 @@ export async function broadcastNewsPost(strapi: Core.Strapi, documentId: string)
       .update({ newsletter_sent: true });
 
     strapi.log.info(
-      `[newsletter] Draft campaign ${created.data.id} ready for "${post.title}" — review and send it at https://app.brevo.com/campaigns`
+      `[newsletter] Draft campaign ${created.data.id} ready for "${post.title}", linking to ${url} — ` +
+        `review and send it at https://app.brevo.com/campaigns`
     );
   } catch (err) {
     strapi.log.error(`[newsletter] Failed to broadcast "${post.title}": ${err?.stack || err}`);
