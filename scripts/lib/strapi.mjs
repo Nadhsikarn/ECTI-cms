@@ -34,16 +34,62 @@ export function requireToken() {
   if (!TOKEN) throw new Error("STRAPI_API_TOKEN is not set.");
 }
 
+/** Long enough for an upload Strapi still has to derive thumbnails from. */
+const REQUEST_TIMEOUT_MS = 120_000;
+const ATTEMPTS = 4;
+
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+/**
+ * Whether a failure is worth trying again.
+ *
+ * Uploading the news archive knocked Strapi Cloud over: every image it accepts
+ * is resized into several formats, and sixty posts of them back to back was
+ * more than the instance could take. It stopped answering, and because nothing
+ * here retried, the remaining 55 posts each failed once and were abandoned —
+ * a run that reported 5 of 60 against a CMS that was fine again minutes later.
+ *
+ * A refusal is different from a rejection. 4xx means Strapi read the request
+ * and said no, and asking again changes nothing; a socket error, a timeout, or
+ * a 5xx means it never got to answer.
+ */
+function worthRetrying(err, status) {
+  if (status === undefined) return true; // fetch threw: no answer at all
+  return status === 429 || status >= 500;
+}
+
 export async function api(path, options = {}) {
-  const res = await fetch(`${STRAPI_URL}${path}`, {
-    ...options,
-    headers: {
-      authorization: `Bearer ${TOKEN}`,
-      ...(options.body instanceof FormData ? {} : { "content-type": "application/json" }),
-      ...options.headers,
-    },
-    signal: AbortSignal.timeout(60_000),
-  });
+  let res;
+
+  for (let attempt = 1; ; attempt += 1) {
+    try {
+      res = await fetch(`${STRAPI_URL}${path}`, {
+        ...options,
+        headers: {
+          authorization: `Bearer ${TOKEN}`,
+          ...(options.body instanceof FormData ? {} : { "content-type": "application/json" }),
+          ...options.headers,
+        },
+        signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+      });
+      if (res.ok || !worthRetrying(null, res.status) || attempt === ATTEMPTS) break;
+    } catch (err) {
+      if (!worthRetrying(err) || attempt === ATTEMPTS) {
+        // Say which end went quiet. "fetch failed" on its own sent us looking
+        // at the old WordPress site for a fault that was Strapi's.
+        throw new Error(
+          `${options.method ?? "GET"} ${path} → no answer from ${STRAPI_URL} ` +
+            `after ${attempt} attempts: ${err.message}`
+        );
+      }
+    }
+
+    // Backs off to give an instance that is struggling room to recover:
+    // 2s, 6s, 18s. Enough for a restart, short enough to sit through.
+    const wait = 2000 * 3 ** (attempt - 1);
+    console.warn(`  … ${path.split("?")[0]} failed, retrying in ${wait / 1000}s`);
+    await sleep(wait);
+  }
 
   const text = await res.text();
 

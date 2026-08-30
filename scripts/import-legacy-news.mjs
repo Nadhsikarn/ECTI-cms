@@ -118,7 +118,16 @@ async function fetchImage(url) {
 }
 
 async function uploadImage(url, alt) {
-  const res = await fetchImage(url);
+  // Two very different failures used to arrive wearing the same words. The
+  // caller reports the source URL, so an upload that Strapi refused read as
+  // "could not fetch this picture from the old site" — and sent us auditing a
+  // WordPress install that had done nothing wrong. Label them at the source.
+  let res;
+  try {
+    res = await fetchImage(url);
+  } catch (err) {
+    throw new Error(`could not read the image: ${err.message}`);
+  }
 
   const blob = await res.blob();
   const name = decodeURIComponent(new URL(url).pathname.split("/").pop() || "image");
@@ -127,8 +136,12 @@ async function uploadImage(url, alt) {
   form.append("files", blob, name);
   form.append("fileInfo", JSON.stringify({ name, alternativeText: alt || name }));
 
-  const [file] = await api("/api/upload", { method: "POST", body: form });
-  return file;
+  try {
+    const [file] = await api("/api/upload", { method: "POST", body: form });
+    return file;
+  } catch (err) {
+    throw new Error(`Strapi would not store it: ${err.message}`);
+  }
 }
 
 /**
