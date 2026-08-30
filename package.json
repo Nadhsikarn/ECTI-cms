@@ -4,6 +4,7 @@
   "private": true,
   "description": "A Strapi application",
   "scripts": {
+    "brevo:check": "node scripts/brevo-campaigns.mjs",
     "build": "strapi build",
     "conf:import": "node scripts/import-legacy-conferences.mjs",
     "conf:scrape": "node scripts/scrape-legacy-conferences.mjs",
