@@ -8,12 +8,15 @@
  * makes the script safe to re-run: after a partial import, run it again and it
  * picks up where it stopped.
  *
- * Posts arrive as drafts. Sixty legacy posts appearing on the live site the
- * moment a script finishes is not a thing anyone should be able to do by
- * accident, and the HTML conversion deserves a look before it is public.
+ * Posts are published on arrival. This file used to claim they came in as
+ * drafts and they never did — a plain POST to Strapi 5's content API stamps
+ * publishedAt, so every run since the first one has put its posts straight on
+ * the live site. Pass --draft for the behaviour that was described here, which
+ * now exists.
  *
  *   STRAPI_URL=... STRAPI_API_TOKEN=... node scripts/import-legacy-news.mjs --dry-run
  *   STRAPI_URL=... STRAPI_API_TOKEN=... node scripts/import-legacy-news.mjs
+ *   STRAPI_URL=... STRAPI_API_TOKEN=... node scripts/import-legacy-news.mjs --draft
  *
  * The token needs write access to news-post, tag and upload.
  */
@@ -51,11 +54,12 @@ const MEDIA_FALLBACK_ORIGIN = (
 ).replace(/\/+$/, "");
 
 function parseArgs(argv) {
-  const args = { in: DEFAULT_IN, dryRun: false, limit: 0 };
+  const args = { in: DEFAULT_IN, dryRun: false, limit: 0, draft: false };
   for (let i = 0; i < argv.length; i += 1) {
     const flag = argv[i];
     if (flag === "--in") args.in = argv[++i];
     else if (flag === "--dry-run") args.dryRun = true;
+    else if (flag === "--draft") args.draft = true;
     else if (flag === "--limit") args.limit = Number(argv[++i]);
     else if (flag === "--help" || flag === "-h") args.help = true;
     else throw new Error(`Unknown argument: ${flag}`);
@@ -155,7 +159,7 @@ async function localiseImages(blocks, cache, report) {
 /**
  * Uploads the images, then hands the rest to the shared create.
  */
-async function importPost(post, tags, imageCache, report) {
+async function importPost(post, tags, imageCache, report, { draft }) {
   const cover = post.coverImageUrl
     ? await uploadImage(post.coverImageUrl, post.coverImageAlt).catch((err) => {
         report.push(`cover image dropped (${post.coverImageUrl}): ${err.message}`);
@@ -177,7 +181,7 @@ async function importPost(post, tags, imageCache, report) {
     ...(tagId ? { tags: [tagId] } : {}),
   };
 
-  return createInBothLocales("news-posts", data);
+  return createInBothLocales("news-posts", data, { draft });
 }
 
 async function main() {
@@ -186,7 +190,7 @@ async function main() {
   if (args.help) {
     console.log(
       "Usage: STRAPI_URL=... STRAPI_API_TOKEN=... node scripts/import-legacy-news.mjs\n" +
-        "       [--in FILE] [--dry-run] [--limit N]"
+        "       [--in FILE] [--dry-run] [--limit N] [--draft]"
     );
     return;
   }
@@ -231,7 +235,7 @@ async function main() {
 
   for (const post of todo) {
     try {
-      await importPost(post, tags, imageCache, report);
+      await importPost(post, tags, imageCache, report, { draft: args.draft });
       done += 1;
       console.log(`  [${done}/${todo.length}] ${post.slug}`);
     } catch (err) {
@@ -240,12 +244,18 @@ async function main() {
     }
   }
 
-  console.log(`\nCreated ${done} of ${todo.length}, as drafts.`);
+  console.log(
+    `\nCreated ${done} of ${todo.length}, ${args.draft ? "as drafts" : "published"}.`
+  );
   if (report.length) {
     console.log("\nWorth a look:");
     for (const line of report) console.log(`  - ${line}`);
   }
-  console.log("\nReview them in the admin, then publish the ones that should be live.");
+  console.log(
+    args.draft
+      ? "\nReview them in the admin, then publish the ones that should be live."
+      : "\nThese are live now. Check them on /news and unpublish anything that should not be."
+  );
 }
 
 main().catch((err) => {

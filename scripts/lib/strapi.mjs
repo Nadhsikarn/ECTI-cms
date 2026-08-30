@@ -75,8 +75,18 @@ export async function existingSlugs(collection) {
  * and Strapi does not propagate those across locales, so leaving it out leaves
  * the English URL unresolvable. src/seed.ts carries the same note.
  */
-export async function createInBothLocales(collection, data) {
-  const created = await api(`/api/${collection}?locale=th`, {
+export async function createInBothLocales(collection, data, { draft = false } = {}) {
+  // A plain POST to the content API publishes. That is worth stating because it
+  // is the opposite of what everything here used to claim: Strapi 5 stamps
+  // publishedAt on create unless you ask for a draft, so an import that says
+  // nothing about status puts every entry straight on the live site.
+  //
+  // Verified against 5.52.2 rather than assumed — POST with no status came back
+  // published and was readable with no token at all, POST with status=draft came
+  // back with publishedAt null and invisible to an anonymous reader.
+  const status = draft ? "&status=draft" : "";
+
+  const created = await api(`/api/${collection}?locale=th${status}`, {
     method: "POST",
     body: JSON.stringify({ data }),
   });
@@ -84,8 +94,10 @@ export async function createInBothLocales(collection, data) {
   const { documentId } = created.data;
 
   // A PUT on the same document, not a second POST — a POST would make a
-  // separate entry rather than a translation of this one.
-  await api(`/api/${collection}/${documentId}?locale=en`, {
+  // separate entry rather than a translation of this one. Same status as the
+  // Thai version, or the English half of a document goes live while the Thai
+  // half waits for review.
+  await api(`/api/${collection}/${documentId}?locale=en${status}`, {
     method: "PUT",
     body: JSON.stringify({ data }),
   });
