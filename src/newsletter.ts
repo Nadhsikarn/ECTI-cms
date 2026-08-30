@@ -155,16 +155,134 @@ function escapeHtml(value: string): string {
     .replace(/"/g, '&quot;');
 }
 
-function buildHtml(post: { title: string; summary?: string }, url: string): string {
+/** Sampled from the logo, so the mail and the site agree on the brand. */
+const BRAND_BLUE = '#0b3d91';
+const BRAND_RED = '#aa1e1e';
+const INK = '#16202b';
+const INK_SOFT = '#5a6875';
+const RULE = '#dde4ec';
+const GROUND = '#eef1f5';
+
+type Lang = 'th' | 'en';
+
+/**
+ * Which language the mail should speak.
+ *
+ * Read off the post itself rather than the locale row it sits in. The legacy
+ * import filled both locales with the same text, so a post's `th` row is very
+ * often English, and dressing it in Thai chrome and linking it to /th would
+ * describe it wrongly in both places.
+ *
+ * A single Thai character is enough: no English news title contains one, and a
+ * Thai title without one does not exist.
+ */
+function detectLang(text: string): Lang {
+  return /[\u0E00-\u0E7F]/.test(text) ? 'th' : 'en';
+}
+
+const COPY: Record<Lang, {
+  eyebrow: string;
+  invite: string;
+  cta: string;
+  org: string;
+  why: string;
+  logoAlt: string;
+}> = {
+  th: {
+    eyebrow: 'ข่าวสารจากสมาคม',
+    invite: 'อ่านรายละเอียดทั้งหมด พร้อมกำหนดการและเอกสารที่เกี่ยวข้อง ได้ที่เว็บไซต์สมาคม',
+    cta: 'อ่านข่าวฉบับเต็ม',
+    org: 'สมาคมวิชาการไฟฟ้า อิเล็กทรอนิกส์ คอมพิวเตอร์ โทรคมนาคม และสารสนเทศ',
+    why: 'คุณได้รับอีเมลฉบับนี้เพราะสมัครรับข่าวสารจากสมาคม ECTI',
+    logoAlt: 'สมาคม ECTI',
+  },
+  en: {
+    eyebrow: 'News from the association',
+    invite: 'Read the full announcement, with dates and related documents, on the ECTI website',
+    cta: 'Read the full story',
+    org: 'Electrical Engineering/Electronics, Computer, Telecommunications and Information Technology Association',
+    why: 'You are receiving this because you subscribed to ECTI news',
+    logoAlt: 'ECTI Association',
+  },
+};
+
+/**
+ * The campaign body.
+ *
+ * Tables and inline styles throughout, which is not how anyone would write a
+ * page in 2026 and is still how mail has to be written: Outlook renders through
+ * Word, and Gmail strips anything in a <style> block. Flex, grid, class
+ * selectors and web fonts are all out.
+ *
+ * A preheader opens it — the line a client shows next to the subject in the
+ * inbox list. Left out, that space fills with whatever text comes first, which
+ * here would be the words "News from the association" on every single mail.
+ *
+ * The logo is an absolute URL against the public site rather than an
+ * attachment, and every layer under it is styled so the mail still reads as
+ * intended when a client blocks images, which many do by default.
+ */
+function buildHtml(
+  post: { title: string; summary?: string },
+  url: string,
+  logoUrl: string,
+  lang: Lang
+): string {
+  const t = COPY[lang];
+  // The slug is a uid field and cannot currently hold a quote, but it reaches
+  // here from the database and the cost of not trusting it is one call.
+  const href = escapeHtml(url);
+  const title = escapeHtml(post.title);
+  const summary = post.summary ? escapeHtml(post.summary) : '';
+  const font = "'Noto Sans Thai',Tahoma,'Helvetica Neue',Arial,sans-serif";
+
+  // Trimmed because a preheader that runs long is padded by the client with the
+  // start of the body, which reads as a stutter in the inbox list.
+  const preheader = escapeHtml((post.summary || post.title).slice(0, 140));
+
   return [
-    '<div style="font-family:Tahoma,Arial,sans-serif;font-size:15px;line-height:1.7;color:#1c2733">',
-    `<h1 style="font-size:20px;line-height:1.4;margin:0 0 12px">${escapeHtml(post.title)}</h1>`,
-    post.summary ? `<p style="margin:0 0 20px">${escapeHtml(post.summary)}</p>` : '',
-    `<p style="margin:0 0 28px"><a href="${url}" style="background:#1d4ed8;color:#fff;text-decoration:none;padding:11px 20px;border-radius:6px;display:inline-block">อ่านข่าวฉบับเต็ม</a></p>`,
-    '<hr style="border:none;border-top:1px solid #dde3ea;margin:0 0 16px">',
-    '<p style="color:#5b6b7c;font-size:13px;margin:0">',
-    'สมาคมวิชาการไฟฟ้า อิเล็กทรอนิกส์ คอมพิวเตอร์ โทรคมนาคม และสารสนเทศ (ECTI)',
-    '</p></div>',
+    `<div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent">${preheader}</div>`,
+
+    `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:${GROUND};margin:0;padding:24px 12px">`,
+    '<tr><td align="center">',
+
+    `<table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;background:#ffffff;border-radius:10px;overflow:hidden">`,
+
+    // ── masthead ──────────────────────────────────────────────────────
+    `<tr><td align="center" style="padding:28px 32px 22px">`,
+    `<img src="${logoUrl}" width="320" alt="${t.logoAlt}" style="display:block;width:320px;max-width:70%;height:auto;border:0">`,
+    '</td></tr>',
+
+    `<tr><td style="padding:0 32px"><div style="height:3px;background:${BRAND_RED};border-radius:2px"></div></td></tr>`,
+
+    // ── body ──────────────────────────────────────────────────────────
+    `<tr><td style="padding:26px 32px 0;font-family:${font}">`,
+    `<p style="margin:0 0 10px;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:${BRAND_BLUE};font-weight:700">${t.eyebrow}</p>`,
+    `<h1 style="margin:0 0 14px;font-size:23px;line-height:1.35;color:${INK};font-weight:700">${title}</h1>`,
+    summary
+      ? `<p style="margin:0 0 20px;font-size:15px;line-height:1.75;color:${INK_SOFT}">${summary}</p>`
+      : '',
+    `<p style="margin:0 0 24px;font-size:15px;line-height:1.75;color:${INK_SOFT}">${t.invite}</p>`,
+    '</td></tr>',
+
+    // ── call to action ────────────────────────────────────────────────
+    // A table rather than a padded <a>: Outlook ignores padding on an inline
+    // element, which would collapse the button into a bare blue link.
+    `<tr><td style="padding:0 32px 30px">`,
+    '<table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>',
+    `<td align="center" style="background:${BRAND_BLUE};border-radius:6px">`,
+    `<a href="${href}" style="display:inline-block;padding:13px 30px;font-family:${font};font-size:15px;font-weight:700;color:#ffffff;text-decoration:none">${t.cta}</a>`,
+    '</td></tr></table>',
+    '</td></tr>',
+
+    // ── footer ────────────────────────────────────────────────────────
+    `<tr><td style="padding:0 32px"><div style="height:1px;background:${RULE}"></div></td></tr>`,
+    `<tr><td style="padding:20px 32px 28px;font-family:${font}">`,
+    `<p style="margin:0 0 6px;font-size:13px;line-height:1.6;color:${INK};font-weight:700">${t.org}</p>`,
+    `<p style="margin:0;font-size:12px;line-height:1.6;color:${INK_SOFT}">${t.why}</p>`,
+    '</td></tr>',
+
+    '</table></td></tr></table>',
   ].join('');
 }
 
@@ -221,7 +339,10 @@ export async function broadcastNewsPost(strapi: Core.Strapi, documentId: string)
     return;
   }
 
-  const url = `${cfg.siteUrl || '(no PUBLIC_SITE_URL)'}/th/news/${post.slug}`;
+  // Language, link and copy all follow the post's own text — see detectLang.
+  const lang = detectLang(`${post.title} ${post.summary ?? ''}`);
+  const url = `${cfg.siteUrl || '(no PUBLIC_SITE_URL)'}/${lang}/news/${post.slug}`;
+  const logoUrl = `${cfg.siteUrl}/images/ecti-logo-email.png`;
 
   if (!cfg.enabled) {
     strapi.log.info(
@@ -245,7 +366,7 @@ export async function broadcastNewsPost(strapi: Core.Strapi, documentId: string)
       subject: post.title,
       sender: { name: cfg.senderName, email: cfg.senderEmail },
       type: 'classic',
-      htmlContent: buildHtml(post, url),
+      htmlContent: buildHtml(post, url, logoUrl, lang),
       recipients: { listIds: [cfg.listId] },
     });
 
@@ -270,7 +391,7 @@ export async function broadcastNewsPost(strapi: Core.Strapi, documentId: string)
       .update({ newsletter_sent: true });
 
     strapi.log.info(
-      `[newsletter] Draft campaign ${created.data.id} ready for "${post.title}", linking to ${url} — ` +
+      `[newsletter] Draft campaign ${created.data.id} ready for "${post.title}" [${lang}], linking to ${url} — ` +
         `review and send it at https://app.brevo.com/campaigns`
     );
   } catch (err) {
