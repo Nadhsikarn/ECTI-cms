@@ -28,6 +28,9 @@ const config: Core.Config.Middlewares = [
     },
   },
   'strapi::poweredBy',
+  // Ahead of strapi::query on purpose: it edits the raw querystring, so the
+  // parse that follows never sees the parameter it removed.
+  'global::public-published-only',
   'strapi::query',
   'strapi::body',
   'strapi::session',
