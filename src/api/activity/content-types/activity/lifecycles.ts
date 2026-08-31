@@ -1,3 +1,5 @@
+import { errors } from '@strapi/utils';
+
 // Lifecycle hooks for the Activity (event) content-type.
 // - slug: shared across i18n locales. `slug` is a non-localized uid, but Strapi
 //   does not propagate uid values to secondary-locale entries, so a new locale
@@ -32,11 +34,41 @@ async function shareSlugAcrossLocales(event: LifecycleEvent) {
   if (sibling?.slug) data.slug = sibling.slug;
 }
 
+/**
+ * The front end builds every event link from the slug, so an activity saved
+ * without one is unreachable on the site.
+ *
+ * This is a hook rather than `required: true` on the schema, for two reasons
+ * that are easy to rediscover the hard way:
+ *
+ * - Schema validation runs *before* these hooks, so marking the field required
+ *   rejects a second locale outright — and a second locale arrives with no slug
+ *   precisely because shareSlugAcrossLocales is about to copy one from its
+ *   sibling. Tried it; it breaks adding an English version of a Thai activity.
+ * - It only binds the admin form anyway. A create through the Document Service
+ *   — a script, an importer, the REST API — stores `slug: null` regardless.
+ *
+ * Checking here, after the copy, covers every path in and still lets
+ * inheritance do its job.
+ */
+function requireSlug(data: LifecycleEvent['params']['data']) {
+  if (typeof data.slug === 'string' && data.slug.trim() !== '') return;
+
+  throw new errors.ValidationError(
+    'An activity needs a slug. The front end builds every link to the event ' +
+      'from it, so an entry saved without one is unreachable on the site.'
+  );
+}
+
 export default {
   async beforeCreate(event: LifecycleEvent) {
     await shareSlugAcrossLocales(event);
+    requireSlug(event.params.data);
   },
   async beforeUpdate(event: LifecycleEvent) {
     await shareSlugAcrossLocales(event);
+    // Only when the write actually carries a slug: a partial update that never
+    // mentions the field must not be judged on a value it isn't setting.
+    if ('slug' in event.params.data) requireSlug(event.params.data);
   },
 };
