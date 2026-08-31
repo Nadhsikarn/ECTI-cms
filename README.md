@@ -98,6 +98,15 @@ Leaving `NEWSLETTER_ENABLED` unset is the safe default, and it is what productio
 runs today. Turning it on only ever creates a **draft** campaign in Brevo — a
 human still has to press send there.
 
+Each news post carries a `newsletter_sent` flag so a re-publish cannot produce a
+second campaign for the same post. The archive imported from the old site was
+written before the newsletter existed, so a migration
+(`database/migrations/2026.08.31T00.00.00.backfill-newsletter-sent.js`) marks
+everything that was already published as handled. **If you ever load another
+batch of historical posts, mark them the same way before switching the
+newsletter on** — otherwise re-publishing that batch prepares one Brevo draft
+per post.
+
 ---
 
 ## What this project adds to a stock Strapi
