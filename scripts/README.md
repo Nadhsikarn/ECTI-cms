@@ -148,3 +148,20 @@ as upcoming ones, so the status is decided by comparing the date to today.
   either; those conference sites are long gone.
 - **No location for any of them.** It is not on the old page.
 - **No cover images.** The page is a table of text.
+
+## ตรวจว่าแท็กตามไปยัง locale ที่สอง
+
+```bash
+pnpm build
+node scripts/test-tag-sharing.cjs
+```
+
+Tag เป็น content-type ที่ localized ในตัวเอง แท็กหนึ่งตัวจึงมีสองแถวคนละ id
+ต่อให้ช่อง `tags` ในข่าวตั้งเป็น non-localized ไว้แล้ว Strapi ก็แชร์ relation
+ให้ไม่ได้ `shareTagsAcrossLocales` ใน lifecycles ของ news-post จึงจับคู่ผ่าน
+`key` ของ Tag ซึ่ง non-localized แล้วผูกให้เอง
+
+สคริปต์นี้รันกับฐานข้อมูลจริงเพราะรูปร่างของ payload ที่ document service ส่ง
+ลงมาให้ lifecycle เป็นสิ่งที่เดาเอาไม่ได้ ครอบห้ากรณี ไทยก่อนแล้วอังกฤษ
+อังกฤษก่อนแล้วไทย ติ๊กแท็กเองในภาษาที่สอง แก้ข้อความเฉย ๆ และข่าวที่ไม่มีแท็ก
+เลย ข่าวที่สร้างระหว่างทดสอบถูกลบทิ้งทุกครั้งไม่ว่าผลจะผ่านหรือไม่
